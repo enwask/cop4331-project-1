@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email
         FROM Contacts
         WHERE UserId = ?
-        AND (FirstName LIKE ? OR LastName LIKE ?)");
+        AND (LOWER(FirstName) LIKE LOWER(?) OR LOWER(LastName) LIKE LOWER(?))");
     // Bind user ID and query (with wildcards on both sides)
     $stmt->bind_param("sss", $id, $query, $query);
     $stmt->execute();
