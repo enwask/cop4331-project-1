@@ -49,6 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare('INSERT INTO Users (FirstName, LastName, Login, Password) VALUES (?, ?, ?, ?)');
     $stmt->bind_param('ssss', $FirstName, $LastName, $Login, $Password);
     $stmt->execute();
+
+    echo 'Executed';
     $result = $stmt->get_result();
 
     // Check if the insert was successful
