@@ -55,6 +55,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Close the SQL connection
 $conn->close();
 
+// redirect to home page after log in
+header("Location: http://contactcircle.xyz/home.html");
+
 function loginSuccess($id, $firstName, $lastName)
 {
     header('Content-type: application/json');
