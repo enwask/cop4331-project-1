@@ -11,12 +11,32 @@
     <h1 class="heading">Welcome to Contact Circle!</h1>
     <div class="form-container">
         <h1 class="form-heading">Search contacts</h1>
-        <form method="POST" action="api/search_contacts.php">
+        <form onsubmit="getSearchResults()">
             <label for="query">Search query:</label>
             <input type="text" name="query" id="query" required><br><br>
             <button type="submit">Submit</button>
+            <textarea contenteditable="false" name="result" id="result" cols="30" rows="10"></textarea>
         </form>
     </div>
+
+    <script>
+        function getSearchResults() {
+            // POST to api/search_contacts.php with query
+            const query = document.getElementById("query").value;
+            // use fetch to send POST request
+            fetch("api/search_contacts.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    query: query
+                })
+            }).then(res => {
+                document.querySelector('#result').value = res.json();
+            });
+        }
+    </script>
 </body>
 
 </html>
