@@ -26,7 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Prepare SQL statement 
     $stmt = $conn->prepare("SELECT ID, Password, FirstName, LastName
         FROM Users
-        WHERE Login = ?");
+        WHERE Login = ?
+        LIMIT 1");
     $stmt->bind_param("s", $Login);
     $stmt->execute();
     $result = $stmt->get_result();

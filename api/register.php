@@ -38,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check whether a user exists with this login
     $stmt_check = $conn->prepare("SELECT ID
         FROM Users
-        WHERE Login = ?");
+        WHERE Login = ?
+        LIMIT 1");
     $stmt_check->bind_param("s", $Login);
     $stmt_check->execute();
     $result_check = $stmt_check->get_result();
