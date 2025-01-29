@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             loginError("Invalid password");
         }
     } else {
-        loginError("Invalid login");
+        loginError("User not found");
     }
 
     // Close prepared statement
@@ -55,19 +55,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Close the SQL connection
 $conn->close();
 
-// redirect to home page after log in
-header("Location: http://contactcircle.xyz/home.html");
-
 function loginSuccess($id, $firstName, $lastName)
 {
     header('Content-type: application/json');
-    echo '{"id": ' . $id . ',"firstName": "' . $firstName . '", "lastName": "' . $lastName . '", "error": ""}';
+    echo '{"status": true, "id": ' . $id . ',"firstName": "' . $firstName . '", "lastName": "' . $lastName . '", "error": ""}';
 }
 
 function loginError($error)
 {
     header('Content-type: application/json');
-    echo '{"id": 0, "firstName": "", "lastName": "", "error": "' . $error . '"}';
+    echo '{"status": false, "id": 0, "firstName": "", "lastName": "", "error": "' . $error . '"}';
 }
 
 ?>
