@@ -57,7 +57,8 @@ $conn->close();
 
 function loginSuccess($id, $firstName, $lastName)
 {
-    header('Content-type: application/json');
+    header("Location: https://contactcircle.xyz/home.html");
+    //header('Content-type: application/json');
     echo '{"status": true, "id": ' . $id . ',"firstName": "' . $firstName . '", "lastName": "' . $lastName . '", "error": ""}';
 }
 
