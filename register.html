@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Register</title>
     <script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
 </head>
@@ -13,17 +13,23 @@
 <body>
     <img src="images/logo.png" alt="logo" width="128" height="128">
     <h1 class="heading">Join the Circle!</h1>
+
     <div class="form-container">
         <h1 class="form-heading">Sign Up</h1>
+
         <form method="POST" action="api/register.php">
-            <label for="Email">Email:</label>
-            <input type="text" name="Email" id="Email" required><br><br>
-            <label for="Login">First name:</label>
+            <label for="Login">Login:</label>
+            <input type="text" name="Login" id="Login" required><br><br>
+
+            <label for="FirstName">First name:</label>
             <input type="text" name="FirstName" id="FirstName" required><br><br>
-            <label for="Login">Last name:</label>
+
+            <label for="LastName">Last name:</label>
             <input type="text" name="LastName" id="LastName" required><br><br>
+
             <label for="Password">Password:</label>
             <input type="password" name="Password" id="Password" required><br><br>
+
             <button type="submit">Sign up</button>
         </form>
         <a href="index.html" class="backToLogin">Back to Login</a>
