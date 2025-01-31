@@ -1,4 +1,4 @@
-const urlBase = 'http://contactcircle.xyz/LAMPAPI';
+const urlBase = 'http://contactcircle.xyz/api';
 const extension = 'php';
 
 let userId = 0;
