@@ -1,13 +1,19 @@
 const urlBase = 'http://contactcircle.xyz/api';
 const extension = 'php';
 
-/*let btn = document.querySelector('#btn');
-let sidebar = document.querySelector('.sidebar');
-    
-btn.onclick = function () {
-    sidebar.classList.toggle('active');
-};
-*/
+document.addEventListener('DOMContentLoaded', function() {
+	let btn = document.querySelector('#btn');
+	let sidebar = document.querySelector('.sidebar');
+
+	if(btn && sidebar)
+	{
+		btn.onclick = function () {
+			sidebar.classList.toggle('active');
+		};
+	}
+
+}
+);
 
 
 let userId = 0;
