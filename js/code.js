@@ -1,6 +1,14 @@
 const urlBase = 'http://contactcircle.xyz/api';
 const extension = 'php';
 
+let btn = document.querySelector('#btn');
+let sidebar = document.querySelector('.sidebar');
+    
+btn.onclick = function () {
+    sidebar.classList.toggle('active');
+};
+
+
 let userId = 0;
 let firstName = "";
 let lastName = "";

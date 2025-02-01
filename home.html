@@ -7,28 +7,68 @@
 	<script type="text/javascript" src="js/code.js"></script>
     <link rel="stylesheet" href="css/home.css">
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
 
-    <h2>Contacts</h2>
-    <div class="function-buttons">
-        <input type="text" id="searchBar" class="input-search" placeholder="Search"/>
-        <button type="button" id="searchContactButton" class ="buttons" onclick="searchContacts();"> Search Contacts  </button><br />
-        <span id="contactSearchResult"></span>
-        <p id="contactList"></p>
+  <!--sidebar-->
+  <div class="sidebar">
+      <div class="top">
+          <div class="logo">
+              <span>ContactCircle</span>
+          </div>
+          <i class="bx bx-menu" id="btn"></i>
+      </div>
+      <ul>
+          <li>
+              <a href="#">
+                  <i class='bx bxs-contact'></i>
+                  <span class="nav-item">Dashboard</span>
+              </a>
+              <span class="tooltip">Dashboard</span>
 
-
-        <button type="button">Add Contact</button> 
-        <button type="button">Delete Contact</button>
-    </div>
-    
-    <div class="left-column">
-        <button type="button" id="logOutButton" class="buttons" style="font-family: 'Varela Round', sans-serif;"
-        onclick="doLogout();">Log Out</button>
-        
-    </div>
-    <script src="js/code.js"></script>
+          <li>
+              <a href="https://github.com/enwask/cop4331-project-1">
+                  <i class='bx bxl-github'></i>
+                  <span class="nav-item">Github</span>
+              </a>
+              <span class="tooltip">Github</span>
+          </li>
+          <li>
+              <a href="#" onclick="doLogout(); return false;">
+                  <i class='bx bx-log-out'></i>
+                  <span class="nav-item">Logout</span>
+              </a>
+              <span class="tooltip">Logout</span>
+          </li>
+      </ul>
+  </div>
+  
+  
+  <!--main-->
+  <div class="main-content">
+      
+      <!--top part-->
+      <div class="Top">
+          <h2>Contact Circle</h2>
+          <div class="function-buttons">
+              <input type="text" id="searchBar" class="input-search" placeholder="Search"/>
+              <button type="button" id="searchContactButton" class ="buttons" onclick="searchContacts();"> Search Contacts  </button><br />
+              <span id="contactSearchResult"></span>
+              <p id="contactList"></p>
+              
+              <button type="button">Add Contact</button> 
+              <button type="button">Delete Contact</button>
+          </div>
+          <div class="left-column">
+              <button type="button" id="logOutButton" class="buttons" style="font-family: 'Varela Round', sans-serif;" onclick="doLogout();">Log Out</button>
+          </div>
+          <script src="js/code.js"></script>
+      </div>
+  </div>
 
 </body>
+
 </html>
 
