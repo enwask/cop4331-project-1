@@ -39,8 +39,8 @@ form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
 
+}
 
 form label {
     font-size: 16px;
@@ -65,11 +65,18 @@ input:hover {
     background-color: #357ab7;
 }
 
+p{
+    color: #fff;
+    font-size: 12px;
+    display: block;
+
+    
+}
 .signup {
     color: #fff;
     font-size: 12px;
     display: block;
-    text-align: left;
+
 }
 
 button {
@@ -94,4 +101,11 @@ button:hover {
     display: block;
     text-align: left;
     margin-top: 10px;
+}
+#registerResult{
+    color: #fff;
+}
+
+.logo:hover{
+    background-color: #357ab7;
 }
