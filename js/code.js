@@ -13,12 +13,11 @@ function doLogin()
 	
 	let login = document.getElementById("Login").value;
 	let password = document.getElementById("Password").value;
-//	var hash = md5( password );
-	
+
 	document.getElementById("loginResult").innerHTML = "";
 
 	let tmp = {Login:login,Password:password};
-//	var tmp = {login:login,password:hash};
+
 	let jsonPayload = JSON.stringify( tmp );
 	
 	let url = urlBase + '/login.' + extension;
@@ -35,9 +34,9 @@ function doLogin()
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
 		
-				if( !jsonObject.status )
+				if( userId < 1 )
 				{		
-					document.getElementById("loginResult").innerHTML = jsonObject.error
+					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 					return;
 				}
 		
@@ -108,16 +107,21 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function addColor()
+function doRegister()
 {
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
+	let login = document.getElementById("Login").value;
+	let firstName = document.getElementById("FirstName").value;
+	let lastName = document.getElementById("LastName").value;
+	let password = document.getElementById("Password").value;
 
-	let tmp = {color:newColor,userId,userId};
+	document.getElementById("registerResult").innerHTML = "";
+	let tmp = {Login:login,FirstName:firstName,LastName:lastName,Password:password};
+
+
 	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/AddColor.' + extension;
 	
+	let url = urlBase + '/register.' + extension;
+
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -127,18 +131,53 @@ function addColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				document.getElementById("registerResult").innerHTML = `Welcome to Contact Circle ${firstName} ${lastName}!`;
+				setTimeout(() =>
+					{
+						window.location.href = "index.html";
+					}, 3000);
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		document.getElementById("registerResult").innerHTML = err.message;
 	}
+
 	
 }
 
+function addColor()
+	{
+		let newColor = document.getElementById("colorText").value;
+		document.getElementById("colorAddResult").innerHTML = "";
+	
+		let tmp = {color:newColor,userId,userId};
+		let jsonPayload = JSON.stringify( tmp );
+	
+		let url = urlBase + '/AddColor.' + extension;
+		
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("colorAddResult").innerHTML = err.message;
+		}
+		
+	}
 function searchColor()
 {
 	let srch = document.getElementById("searchText").value;
