@@ -117,7 +117,7 @@ function doRegister()
 	document.getElementById("registerResult").innerHTML = "";
 	if(!login || !firstName || !lastName || !password)
 	{
-		document.getElementById("registerResult").innerHTML = "All fields are requried";
+		document.getElementById("registerResult").innerHTML = "All fields are required";
 		return; 
 	}
 	let tmp = {Login:login, FirstName:firstName, LastName:lastName, Password:password};
