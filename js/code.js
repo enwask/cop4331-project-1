@@ -115,8 +115,12 @@ function doRegister()
 	let password = document.getElementById("Password").value;
 
 	document.getElementById("registerResult").innerHTML = "";
-	let tmp = {Login:login,FirstName:firstName,LastName:lastName,Password:password};
-
+	if(!login || !firstName || !lastName || !password)
+	{
+		document.getElementById("registerResult").innerHTML = "All fields are requried";
+		return; 
+	}
+	let tmp = {Login:login, FirstName:firstName, LastName:lastName, Password:password};
 
 	let jsonPayload = JSON.stringify( tmp );
 	
@@ -148,9 +152,9 @@ function doRegister()
 	
 }
 
-function addColor()
-	{
-		let newColor = document.getElementById("colorText").value;
+function addContact()
+{
+	let newColor = document.getElementById("colorText").value;
 		document.getElementById("colorAddResult").innerHTML = "";
 	
 		let tmp = {color:newColor,userId,userId};
@@ -176,8 +180,7 @@ function addColor()
 		{
 			document.getElementById("colorAddResult").innerHTML = err.message;
 		}
-		
-	}
+}
 function searchColor()
 {
 	let srch = document.getElementById("searchText").value;
