@@ -10,18 +10,19 @@
 <body>
 
     <h2>Contacts</h2>
-    <div class="Function buttons">
-        <input type="text" class="input-search" placeholder="Search">
+    <div class="function-buttons">
+        <input type="text" id="searchBar" class="input-search" placeholder="Search">
         <button type="button">Add Contact</button> 
         <button type="button">Delete Contact</button>
     </div>
     
     <div class="left-column">
-    <button type="button">Logout</button>
-    
+        <button type="button" id="logOutButton" class="buttons" style="font-family: 'Varela Round', sans-serif;"
+        onclick="doLogout();">Log Out</button>
+        
     </div>
+    <script src="js/code.js"></script>
 
 </body>
 </html>
-
 
