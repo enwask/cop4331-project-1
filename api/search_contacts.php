@@ -18,6 +18,9 @@ $id = $_SESSION["ID"];
 
 // Check if form is sumbmitted 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Accept POST body as JSON
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
     // Build SQL statement from the query
     $query = "%" . $_POST['query'] . "%";
 

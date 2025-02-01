@@ -11,6 +11,9 @@ if ($conn->connect_error) {
 
 // Check if form is sumbmitted 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Accept POST body as JSON
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
     // ID is auto-incremented
     $Login = $_POST['Login'];
     $Password = $_POST['Password'];
