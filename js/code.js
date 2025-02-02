@@ -109,7 +109,7 @@ function readCookie()
 	}
 	else
 	{
-		console.log("user is: ", firstName,lastName);
+		console.log("firstname: ", firstName, "lastname: ",lastName);
 		document.getElementById("userName").innerHTML = "Welcome, " + firstName;
 	}
 }
