@@ -56,9 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param('ssss', $FirstName, $LastName, $Login, $Password);
     $stmt->execute();
 
-    echo 'Executed';
-    $result = $stmt->get_result();
-
     // Check if the insert was successful
     if ($conn->affected_rows > 0) {
         // Redirect to login page

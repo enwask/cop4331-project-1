@@ -21,17 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Accept POST body as JSON
     $_POST = json_decode(file_get_contents('php://input'), true);
 
-    // Validate email
-    if (!preg_match('/\w+/', $Login)) {
-        registerError('Invalid login');
-        exit();
-    }
-    //Validate phone
-    if (!preg_match('/^[0-9\-\s\(\)]+$/', $phone) && !empty($phone)) {
-        createContactError("Invalid phone number format");
-        exit();
-    }
-    //Validate names
+    $FirstName = $_POST['FirstName'];
+    $LastName = $_POST['LastName'];
+    $Email = $_POST['Email'];
+    $Phone = $_POST['Phone'];
+
+    // Validate names
     if ($FirstName === '') {
         createContactError('First name cannot be empty');
         exit();
@@ -40,12 +35,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         createContactError('Last name cannot be empty');
         exit();
     }
+    // Validate phone
+    if (!preg_match('/^[0-9\-\s\(\)]+$/', $Phone) && !empty($Phone)) {
+        createContactError("Invalid phone number format");
+        exit();
+    }
+    // Validate email
+    if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $Email)) {
+        createContactError("Invalid email format");
+        exit();
+    }
 
-    //Check whether a user exists with this id in this contact list?
+    // Check if user already has a contact with the same first and last name
+    $stmt_check = $conn->prepare("SELECT *
+        FROM Contacts
+        WHERE UserId = ?
+        AND (LOWER(FirstName) = LOWER(?) AND LOWER(LastName) = LOWER(?))");
+    $stmt_check->bind_param("sss", $id, $FirstName, $LastName);
+    $stmt_check->execute();
+    $result_check = $stmt_check->get_result();
+    if ($result_check->num_rows > 0) {
+        createContactError("Contact with this name already exists");
+        exit();
+    }
 
-    //Insert contact, am still looking for the database syntax for this
-
+    // Insert contact, am still looking for the database syntax for this
+    $stmt = $conn->prepare("INSERT INTO Contacts (FirstName, LastName, Phone, Email, UserID)
+        VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssi", $FirstName, $LastName, $Phone, $Email, $id);
+    $stmt->execute();
     
+    // Check if the insert was successful
+    if ($conn->affected_rows > 0) {
+        createContactSuccess();
+    } else {
+        createContactError("Failed to create contact");
+    }
+
     $stmt->close();
 } else {
     createContactError("Invalid request");
@@ -56,11 +82,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close();
 
 
-
 function createContactError($msg)
 {
     header('Content-type: application/json');
-    echo '{"status": false, "count": 0, "contacts": [], "error": "' . $msg . '"}';
+    echo '{"status": false, "error": "' . $msg . '"}';
+}
+
+function createContactSuccess()
+{
+    header('Content-type: application/json');
+    echo '{"status": true, "error": ""}';
 }
 
 ?>

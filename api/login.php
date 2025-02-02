@@ -61,7 +61,7 @@ $conn->close();
 function loginSuccess($id, $firstName, $lastName)
 {
     header('Content-type: application/json');
-    echo '{"status": true, "id": ' . $id . ',"firstName": "' . $firstName . '", "lastName": "' . $lastName . '", "error": ""}';
+    echo '{"status": true, "id": ' . $id . ', "firstName": "' . $firstName . '", "lastName": "' . $lastName . '", "error": ""}';
 }
 
 function loginError($error)
