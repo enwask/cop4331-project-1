@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create contact</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <h1 class="heading">Welcome to Contact Circle!</h1>
+    <div class="form-container">
+        <h1 class="form-heading">Edit contact</h1>
+        <form onsubmit="return createContact();">
+            <label for="ID">Contact ID:</label>
+            <input type="number" name="ID" required><br><br>
+
+            <label for="FirstName">First name (blank to keep old value):</label>
+            <input type="text" name="FirstName"><br><br>
+
+            <label for="LastName">Last name (blank to keep old value):</label>
+            <input type="text" name="LastName"><br><br>
+
+            <label for="Email">Email (blank to keep old value):</label>
+            <input type="email" name="Email"><br><br>
+
+            <label for="Phone">Phone (blank to keep old value):</label>
+            <input type="tel" name="Phone"><br><br>
+
+            <button type="submit">Submit</button>
+            <textarea contenteditable="false" name="result" id="result" cols="30" rows="10"></textarea>
+        </form>
+    </div>
+
+    <script>
+        function createContact() {
+            const formData = new FormData(document.querySelector('form'));
+            const body = JSON.stringify(Object.fromEntries(formData));
+
+            // use fetch to send POST request
+            fetch("api/create_contact.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: body
+            }).then(res => {
+                return res.json();
+            }).then(res => {
+                let resultBox = document.querySelector('#result');
+                resultBox.value = JSON.stringify(res, null, 2);
+                resultBox.rows = JSON.stringify(res, null, 2).split('\n').length;
+            });
+            return false;
+        }
+    </script>
+</body>
+
+</html>
