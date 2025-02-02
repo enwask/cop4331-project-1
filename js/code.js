@@ -110,7 +110,7 @@ function readCookie()
 	else
 	{
 		console.log("firstname: ", firstName, "lastname: ",lastName);
-		document.getElementById("userName").innerHTML = "Welcome, " + firstName + "!";
+		document.getElementById("userName").innerHTML = "Welcome " + firstName + "!";
 	}
 }
 
@@ -168,15 +168,26 @@ function doRegister()
 	
 }
 
-function addContact()
+
+function createContact()
 {
-	let newColor = document.getElementById("colorText").value;
+		let firstName = document.getElementById("firstName").value;
+		let lastName = document.getElementById("lastName").value;
+		let phone = document.getElementById("phone").value;
+		let email = document.getElementById("email").value;
+
 		document.getElementById("contactAddResult").innerHTML = "";
+
+		if(!firstName || !lastName || !phone || !email)
+		{
+			document.getElementById("contactAddResult").innerHTML = "All fields are requried.";
+			return false; 
+		}
 	
-		let tmp = {color:newColor,userId,userId};
+		let tmp = {FirstName:firstName, LastName:lastName, Phone: phone, Email:email, UserId:userId};
 		let jsonPayload = JSON.stringify( tmp );
 	
-		let url = urlBase + '/search_contacts.' + extension;
+		let url = urlBase + '/create_contact.' + extension;
 		
 		let xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
@@ -187,7 +198,7 @@ function addContact()
 			{
 				if (this.readyState == 4 && this.status == 200) 
 				{
-					document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+					document.getElementById("contactAddResult").innerHTML = `${firstName}, ${lastName} has been added`;
 				}
 			};
 			xhr.send(jsonPayload);
@@ -196,6 +207,7 @@ function addContact()
 		{
 			document.getElementById("contactAddResult").innerHTML = err.message;
 		}
+		return false; 
 }
 function searchContacts()
 {
