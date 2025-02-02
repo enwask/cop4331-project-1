@@ -215,12 +215,13 @@ function createContact()
 }
 function searchContacts()
 {
-		let search = document.getElementById("searchBar").value;
-		document.getElementById("contactSearchResult").innerHTML = "";
-		
-		let contactList = "";
-	
-		let tmp = {query:search, userId:userId};
+	const query = document.getElementById("query").value;
+	const table = document.getElementById("contacts");
+	const tr = table.getElementsByTagName("tr"); //table row
+		let tmp = {
+			query:search, 
+			userId:userId}
+			;
 		let jsonPayload = JSON.stringify( tmp );
 	
 		let url = urlBase + '/search_contacts.' + extension;
@@ -234,7 +235,6 @@ function searchContacts()
 			{
 				if (this.readyState == 4 && this.status == 200) 
 				{
-					document.getElementById("contactSearchResult").innerHTML = "Contacts has been retrieved";
 					let jsonObject = JSON.parse( xhr.responseText );
 					
 					for( let i=0; i<jsonObject.contacts.length; i++ )
