@@ -168,7 +168,6 @@ function doRegister()
 	
 }
 
-
 function createContact()
 {
 		let firstName = document.getElementById("firstName").value;
@@ -258,7 +257,58 @@ function searchContacts()
 		}
 		
 }
-function deleteContact(contactId){
+
+function editContact()
+{
+		let id = document.getElementById("contactID").value;
+		let firstName = document.getElementById("firstName").value;
+		let lastName = document.getElementById("lastName").value;
+		let phone = document.getElementById("phone").value;
+		let email = document.getElementById("email").value;
+	
+		let tmp = {ContactID: id, FirstName:firstName, LastName:lastName, Phone: phone, Email:email};
+		let jsonPayload = JSON.stringify( tmp );
+	
+		let url = urlBase + '/edit_contact.' + extension;
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					document.getElementById("contactEditResult").innerHTML = `${firstName} ${lastName} has been edited!`;
+					setTimeout(() =>
+					{
+						document.getElementById("editContactForm").style.display = "none";
+						window.location.reload();
+					}, 1500);
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("contactAddResult").innerHTML = err.message;
+		}
+		return false; 
+}
+	
+function populateContact(id, firstName, lastName, email, phone)
+{
+
+	document.getElementById("contactID").value = id;
+	document.getElementById("firstName").value = firstName;
+	document.getElementById("lastName").value = lastName;
+	document.getElementById("email").value = email;
+	document.getElementById("phone").value = phone;
+
+	document.getElementById("editContactForm").style.display = "block"; 
+}
+function deleteContact(contactId)
+{
 	let tmp = { ID: contact, UserId: userId };
 	let jsonPayload = JSON.stringify(tmp);
 
@@ -283,5 +333,3 @@ function deleteContact(contactId){
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }
-	
-	
