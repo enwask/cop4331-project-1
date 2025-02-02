@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Create contact</title>
+    <title>Edit contact</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -11,7 +11,7 @@
     <h1 class="heading">Welcome to Contact Circle!</h1>
     <div class="form-container">
         <h1 class="form-heading">Edit contact</h1>
-        <form onsubmit="return createContact();">
+        <form onsubmit="return editContact();">
             <label for="ID">Contact ID:</label>
             <input type="number" name="ID" required><br><br>
 
@@ -33,7 +33,7 @@
     </div>
 
     <script>
-        function createContact() {
+        function editContact() {
             const formData = new FormData(document.querySelector('form'));
             const body = JSON.stringify(Object.fromEntries(formData));
 
