@@ -6,7 +6,7 @@
 }
 
 body {
-    background-image: url('https://cdn.discordapp.com/attachments/1333236079528247311/1335346572841586870/iStock-1302602181.jpg?ex=679fd5e8&is=679e8468&hm=cf37302103935e9442894458d2cd1ed265718e63f5f72a31472ca999de1622c6&');
+    background-image: url('/images/home.jpg');
     background-size: cover;
 }
 
@@ -235,5 +235,3 @@ body {
     display: flex;
 
 }
-
-
