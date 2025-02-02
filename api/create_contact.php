@@ -5,13 +5,13 @@ include 'db.php';
 
 // Connection error check
 if ($conn->connect_error) {
-    searchError("Failed to connect to database");
+    createContactError("Failed to connect to database");
     exit();
 }
 
 // Check that the session has a user ID
 if ($_SESSION["ID"] === null) {
-    searchError("Invalid session");
+    createContactError("Invalid session");
     exit();
 }
 $id = $_SESSION["ID"];
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if user already has a contact with the same first and last name
     $stmt_check = $conn->prepare("SELECT *
         FROM Contacts
-        WHERE UserId = ?
+        WHERE UserID = ?
         AND (LOWER(FirstName) = LOWER(?) AND LOWER(LastName) = LOWER(?))");
     $stmt_check->bind_param("sss", $id, $FirstName, $LastName);
     $stmt_check->execute();
