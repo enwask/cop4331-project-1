@@ -5,13 +5,13 @@ include 'db.php';
 
 // Connection error check
 if ($conn->connect_error) {
-    searchError("Failed to connect to database");
+    deleteContactError("Failed to connect to database");
     exit();
 }
 
 // Check that the session has a user ID
 if ($_SESSION["ID"] === null) {
-    searchError("Invalid session");
+    deleteContactError("Invalid session");
     exit();
 }
 $id = $_SESSION["ID"];
@@ -20,50 +20,62 @@ $id = $_SESSION["ID"];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Accept POST body as JSON
     $_POST = json_decode(file_get_contents('php://input'), true);
+    $ContactID = (int) $_POST['ID'];
 
-    // Build SQL statement from the query
-    $query = "%" . $_POST['query'] . "%";
-
-    $stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email
-        FROM Contacts
-        WHERE UserId = ?
-        AND (LOWER(FirstName) LIKE LOWER(?) OR LOWER(LastName) LIKE LOWER(?))");
-    // Bind user ID and query (with wildcards on both sides)
-    $stmt->bind_param("sss", $id, $query, $query);
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-    $arr = array();
-    while ($row = $result->fetch_assoc()) {
-        array_push($arr, array(
-            "id" => $row['ID'],
-            "firstName" => $row['FirstName'],
-            "lastName" => $row['LastName'],
-            "phone" => $row['Phone'],
-            "email" => $row['Email']
-        ));
+    // Make sure contact id is an integer
+    if ($ContactID < 1) {
+        deleteContactError('Invalid contact ID');
+        exit();
     }
 
-    sendSearchResults($arr);
+    // Check if user already has a contact with the same first and last name
+    $stmt_check = $conn->prepare("SELECT *
+        FROM Contacts
+        WHERE UserID = ?
+        AND ID = ?");
+    $stmt_check->bind_param("si", $id, $ContactID);
+    $stmt_check->execute();
+    $result_check = $stmt_check->get_result();
+    if ($result_check->num_rows < 1) {
+        deleteContactError("No contact with this ID exists");
+        exit();
+    }
+
+    // Delete the contact
+    $stmt = $conn->prepare("DELETE
+        FROM Contacts
+        WHERE UserID = ?
+        AND ID = ?");
+    $stmt->bind_param("si", $id, $ContactID);
+    $stmt->execute();
+
+    // Check if the insert was successful
+    if ($conn->affected_rows > 0) {
+        deleteContactSuccess();
+    } else {
+        deleteContactError("Failed to delete contact");
+    }
+
     $stmt->close();
 } else {
-    searchError("Invalid request");
+    deleteContactError("Invalid request");
     exit();
 }
 
 // Close the SQL connection
 $conn->close();
 
-function sendSearchResults($arr)
+
+function deleteContactError($msg)
 {
     header('Content-type: application/json');
-    echo '{"status": true, "count": ' . count($arr) . ', "contacts": [' . json_encode($arr) . '], "error": ""}';
+    echo '{"status": false, "error": "' . $msg . '"}';
 }
 
-function searchError($msg)
+function deleteContactSuccess()
 {
     header('Content-type: application/json');
-    echo '{"status": false, "count": 0, "contacts": [], "error": "' . $msg . '"}';
+    echo '{"status": true, "error": ""}';
 }
 
 ?>
