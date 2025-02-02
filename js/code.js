@@ -110,7 +110,7 @@ function readCookie()
 	else
 	{
 		console.log("firstname: ", firstName, "lastname: ",lastName);
-		document.getElementById("userName").innerHTML = "Welcome, " + firstName;
+		document.getElementById("userName").innerHTML = "Welcome, " + firstName + "!";
 	}
 }
 
