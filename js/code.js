@@ -258,5 +258,30 @@ function searchContacts()
 		}
 		
 }
+function deleteContact(contactId){
+	let tmp = { ID: contact, UserId: userId };
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/delete_contact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST",url,true);
+	xhr.setRequestHeader("Content-type","application/json; charset = UTF-8");
+	try{
+		xhr.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				let resBox = document.getElementById("contactSearchResult");
+				resBox.innerHTML = "Contact removed";
+				//refresh
+				searchContacts();
+			} else if (this.readyState == 4){
+				let resBox = document.getElementById("contactSearchResult");
+				resBox.innerHTML = "Could not remove contact.";
+			}
+		}
+	} catch(err){
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}
+}
 	
 	
