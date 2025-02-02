@@ -198,7 +198,11 @@ function createContact()
 			{
 				if (this.readyState == 4 && this.status == 200) 
 				{
-					document.getElementById("contactAddResult").innerHTML = `${firstName}, ${lastName} has been added`;
+					document.getElementById("contactAddResult").innerHTML = `${firstName} ${lastName} has been added`;
+					setTimeout(() =>
+					{
+						window.location.href = "home.html";
+					}, 3000);
 				}
 			};
 			xhr.send(jsonPayload);
