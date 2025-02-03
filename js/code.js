@@ -391,20 +391,3 @@ function loadContacts(){
 			console.error("Error fetching contacts:", err.message);
 		}
 }
-//THIS IS FOR EDIT MODUAL BOX FORM
-function openModal(contactID, firstName, lastName, phone, email){
-	//get current contact details
-	document.getElementById("contactID").value = contactID;
-	document.getElementById("firstName").value = firstName;
-	document.getElementById("lastName").value = lastName;
-	document.getElementById("phone").value = phone;
-	document.getElementById("email").value = email;
-
-	//display modal
-	const modal = document.getElementById("contactEditModal");
-	modal.style.display="block";
- }
- function closeModal(){
-	const modal = document.getElementById("contactEditModal");
-	modal.style.display="none";
- }
