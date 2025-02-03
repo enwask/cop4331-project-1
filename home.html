@@ -124,29 +124,30 @@
                 </table>
             </div>
         </div>
-
-        <div id="editContactForm" style="display:none;">
-            <h3>Edit Contact</h3>
-            <form id="editContactFormContent" onsubmit="return editContact();">
-                <input type="hidden" id="contactID" name="contactID">
-                <label for="firstName">First Name:</label>
-                <input type="text" name="FirstName" id="firstName" required><br><br>
-                
-                <label for="lastName">Last Name:</label>
-                <input type="text" name="LastName" id="lastName" required><br><br>
-    
-                <label for="phone">Phone Number:</label>
-                <input type="text" name="Phone" id="phone" required><br><br>
-    
-                <label for="email">Email:</label>
-                <input type="text" name="Email" id="email" required><br><br>
-                
-                <button type="submit">Save</button>
-                <div id="contactEditResult"></div>
+	<!--EIDT CONTACT FORM-->
+        <div id="contactEditModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditModal()">&times;</span>
+                    <h3>Edit Contact</h3>
+                    <form id="editContactFormContent" onsubmit="return editContact();">
+                        <input type="hidden" id="contactID" name="contactID">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" name="FirstName" id="firstName" required><br><br>
+                        
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" name="LastName" id="lastName" required><br><br>
             
-            </form>
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" name="Phone" id="phone" required><br><br>
+            
+                        <label for="email">Email:</label>
+                        <input type="text" name="Email" id="email" required><br><br>
+                        
+                        <button type="submit">Save</button>
+                        <div id="contactEditResult"></div>
+                </form>
+            </div>
         </div>
-    </div>
   
   </body>
 
