@@ -125,6 +125,13 @@ img{
 .signup-link p a:hover {
     text-decoration: underline;
 }
+.returnJS {
+    margin-top: 5px;
+    text-align: center;
+    color: red;
+    font-weight: 600;
+}
+
 
 
 
