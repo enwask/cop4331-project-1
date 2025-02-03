@@ -371,6 +371,7 @@ function loadContacts(){
 							<td>${contact.LastName}</td>
 							<td>${contact.Phone}</td>
 							<td>${contact.Email}</td>
+       							<td><button onclick="editContact(${contact.ID})" class="edit-button">Edit</button></td>
 							<td><button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
 						</tr>`;
 						tableBody.innerHTML += row;
