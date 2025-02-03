@@ -266,7 +266,7 @@ function editContact()
 		let phone = document.getElementById("phone").value;
 		let email = document.getElementById("email").value;
 	
-		let tmp = {contactID: id, FirstName:firstName, LastName:lastName, Phone: phone, Email:email};
+		let tmp = {ID: id, FirstName:firstName, LastName:lastName, Phone: phone, Email:email};
 		let jsonPayload = JSON.stringify( tmp );
 		console.log(tmp); 
 
