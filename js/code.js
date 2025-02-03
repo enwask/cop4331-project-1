@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		};
 	}
 
-}
-);
+    loadContacts();
+});
 
 
 let userId = 0;
