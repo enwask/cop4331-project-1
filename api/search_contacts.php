@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
              OR Email LIKE ?");
 
     // Bind user ID and query (with wildcards on both sides)
-    $stmt->bind_param("sss", $id, $query, $query, $phone_query, $query);
+    $stmt->bind_param("sssss", $id, $query, $query, $phone_query, $query);
     $stmt->execute();
 
     // Get the results and store them in an array
