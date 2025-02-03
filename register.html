@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="preload" href="images/SharkCircle.jpg" as="image">
+    <link rel="preload" href="images/home.jpg" as="image">
+    <link rel="preload" href="images/whiteshark.png" as="image">
     <title>Register</title>
     <script type="text/javascript" src="js/md5.js"></script>
     <script type="text/javascript" src="js/code.js"></script>
@@ -13,30 +14,41 @@
 </head>
 
 <body>
-    <img src="images/logo.png" alt="logo" width="128" height="128">
-    <h1 class="heading">Join the Circle!</h1>
+    <img src="images/whiteshark.png" alt="logo" width="128" height="128">
+    <div class="title">
+        <h1 class="heading">Join the Circle!</h1>
+    </div>
 
     <div class="form-container">
         <h1 class="form-heading">Sign Up</h1>
 
         <form method="POST" action="api/register.php">
-            <label for="Login">Username:</label>
-            <input type="text" name="Login" id="Login" required><br><br>
+            
+            <div class="input-box">
+                <input type="text" name="Login" id="Login" placeholder="Username" required><br><br>
+            </div>
+           
+            <div class="input-box">
+                <input type="text" name="FirstName" id="FirstName"  placeholder="First Name" required><br><br>
+            </div>
 
-            <label for="FirstName">First name:</label>
-            <input type="text" name="FirstName" id="FirstName" required><br><br>
+            <div class="input-box">
+                <input type="text" name="LastName" id="LastName" placeholder="Last Name" required><br><br>
+            </div>
+            
+            <div class="input-box">
+                <input type="password" name="Password" id="Password"  placeholder="Password" required><br><br>
+            </div>
 
-            <label for="LastName">Last name:</label>
-            <input type="text" name="LastName" id="LastName" required><br><br>
-
-            <label for="Password">Password:</label>
-            <input type="password" name="Password" id="Password" required><br><br>
-
-            <button type="button" id="signUpButton" class="buttons" style="font-family: 'Varela Round', sans-serif;"
-            onclick="doRegister();">Sign Up</button>
-            <span id="registerResult"></span>
-
-            <p>Already have an account? <a href="index.html" class="backToLogin" style="display: inline;">Login</a><p></p>
+            <button type="button" id="signUpButton" class="buttons" onclick="doRegister();">Sign Up</button>
+            
+            <div class="returnJS">
+                <span id="registerResult">wrwerwer</span>
+            </div>
+            
+            <div class="signup-link">
+                <p>Already have an account? <a href="index.html" class="backToLogin" style="display: inline;">Login</a><p></p>
+            </div>
         </form>
     </div>
     <script src="js/code.js"></script>
