@@ -302,14 +302,14 @@ function editContact()
 		return false; 
 }
 	
-function populateContact(id, firstName, lastName, email, phone)
+
+function populateContact(id, firstName, lastName, phone, email)
 {
 	document.getElementById("contactID").value = id;
 	document.getElementById("firstName").value = firstName;
 	document.getElementById("lastName").value = lastName;
-	document.getElementById("email").value = email;
 	document.getElementById("phone").value = phone;
-
+	document.getElementById("email").value = email;
 	document.getElementById("editContactForm").style.display = "block"; 
 }
 function deleteContact(contactId){
@@ -373,7 +373,8 @@ function loadContacts(){
 							<td>${contact.LastName}</td>
 							<td>${contact.Phone}</td>
 							<td>${contact.Email}</td>
-       						<td><button onclick="editContact(${contact.ID})" class="edit-button">Edit</button>
+       						<td>
+								<button onclick="populateContact(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}', '${contact.Email}')">Edit</button>
 								<button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
 						</tr>`;
 						tableBody.innerHTML += row;
