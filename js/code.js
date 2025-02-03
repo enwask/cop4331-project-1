@@ -194,8 +194,14 @@ function createContact()
 			{
 				if (this.readyState == 4 && this.status == 200) 
 				{
-					document.getElementById("contactAddResult").innerHTML = `${firstName} ${lastName} has been added`;
-					window.location.href = "home.html";
+                    // Get response JSON
+                    let jsonObject = JSON.parse(xhr.responseText);
+                    if (jsonObject.status) { // Success!
+                        window.location.href = "home.html";
+                        return;
+                    }
+
+                    alert("Error creating contact: " + jsonObject.error);
 				}
 			};
 			xhr.send(jsonPayload);
@@ -236,7 +242,7 @@ function editContact()
 					{
 						document.getElementById("editContactForm").style.display = "none";
 						loadContacts();
-					}, 500);
+					}, 1500);
 				}
 				else if(this.readyState == 4){
 					document.getElementById("contactEditResult").innerHTML = "Could not update";
