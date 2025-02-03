@@ -270,7 +270,7 @@ function populateContact(id, firstName, lastName, phone, email)
 }
 
 function hideEditForm(){
-	document.getElementById("editContactForm").style.dispay="none";
+	document.getElementById("editContactForm").style.display="none";
 }
 
 function deleteContact(contactId){
