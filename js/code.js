@@ -322,7 +322,7 @@ function loadContacts() {
                 let tableBody = document.getElementById("tbody");
                 tableBody.innerHTML = ""; // Clear previous entries
 
-                for (let contact in contacts) {
+                contacts.forEach(contact => {
                     let row = `<tr>
 							<td>${contact.firstName}</td>
 							<td>${contact.lastName}</td>
@@ -338,7 +338,7 @@ function loadContacts() {
 							</td>
 						</tr>`;
                     tableBody.innerHTML += row;
-                }
+                });
             }
         };
         xhr.send(jsonPayload);
@@ -376,7 +376,7 @@ function searchContacts() {
                 let tableBody = document.getElementById("tbody");
                 tableBody.innerHTML = ""; // Clear previous entries
 
-                for (let contact in contacts) {
+                contacts.forEach(contact => {
                     let row = `<tr>
 							<td>${contact.firstName}</td>
 							<td>${contact.lastName}</td>
@@ -392,7 +392,7 @@ function searchContacts() {
 							</td>
 						</tr>`;
                     tableBody.innerHTML += row;
-                }
+                });
             }
         };
         xhr.send(jsonPayload);
