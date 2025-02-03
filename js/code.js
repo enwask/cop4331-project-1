@@ -329,10 +329,10 @@ function loadContacts() {
 							<td>${contact.phone}</td>
 							<td>${contact.email}</td>
 							<td>
-								<button onclick="populateContact(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}', '${contact.Email}')" class="edit-button">
+								<button onclick="populateContact(${contact.id}, '${contact.firstName}', '${contact.lastName}', '${contact.phone}', '${contact.email}')" class="edit-button">
 									<i class='bx bx-edit-alt'></i>
 								</button>
-								<button onclick="deleteContact(${contact.ID})" class="delete-button">
+								<button onclick="deleteContact(${contact.id})" class="delete-button">
 									<i class='bx bx-trash'></i>
 								</button>
 							</td>
