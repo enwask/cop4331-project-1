@@ -369,7 +369,6 @@ function loadContacts(){
 	
 					for (let contact of contacts) {
 						let row = `<tr>
-							<td>${contact.ID}</td>
 							<td>${contact.FirstName}</td>
 							<td>${contact.LastName}</td>
 							<td>${contact.Phone}</td>
