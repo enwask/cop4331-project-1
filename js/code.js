@@ -310,23 +310,24 @@ function populateContact(id, firstName, lastName, email, phone)
 
 	document.getElementById("editContactForm").style.display = "block"; 
 }
-function deleteContact(contactId)
-{
-	let tmp = { ID: contact, UserId: userId };
+function deleteContact(contactId){
+	let tmp = { ID: contactId};
 	let jsonPayload = JSON.stringify(tmp);
 
 	let url = urlBase + '/delete_contact.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST",url,true);
-	xhr.setRequestHeader("Content-type","application/json; charset = UTF-8");
+	xhr.setRequestHeader("Content-type","application/json; charset=UTF-8");
 	try{
 		xhr.onreadystatechange = function(){
 			if(this.readyState == 4 && this.status == 200){
+
 				let resBox = document.getElementById("contactSearchResult");
 				resBox.innerHTML = "Contact removed";
+				
 				//refresh
-				searchContacts();
+				loadContacts();
 			} else if (this.readyState == 4){
 				let resBox = document.getElementById("contactSearchResult");
 				resBox.innerHTML = "Could not remove contact.";
@@ -336,6 +337,7 @@ function deleteContact(contactId)
 	} catch(err){
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
+
 }
 function loadContacts(){
 		// API endpoint
@@ -369,10 +371,7 @@ function loadContacts(){
 							<td>${contact.LastName}</td>
 							<td>${contact.Phone}</td>
 							<td>${contact.Email}</td>
-							<td>
-								<button onclick="populateContact(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}','${contact.Email}')" class="edit-button">Edit</button>
-								<button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button>
-							</td>
+							<td><button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
 						</tr>`;
 						tableBody.innerHTML += row;
 					}
