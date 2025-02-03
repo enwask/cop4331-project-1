@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit contact</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
 
 <body>
@@ -31,29 +31,7 @@
             <textarea contenteditable="false" name="result" id="result" cols="30" rows="10"></textarea>
         </form>
     </div>
-
-    <script>
-        function editContact() {
-            const formData = new FormData(document.querySelector('form'));
-            const body = JSON.stringify(Object.fromEntries(formData));
-
-            // use fetch to send POST request
-            fetch("api/edit_contact.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: body
-            }).then(res => {
-                return res.json();
-            }).then(res => {
-                let resultBox = document.querySelector('#result');
-                resultBox.value = JSON.stringify(res, null, 2);
-                resultBox.rows = JSON.stringify(res, null, 2).split('\n').length;
-            });
-            return false;
-        }
-    </script>
+    <script src="js/code.js"></script>
 </body>
 
 </html>

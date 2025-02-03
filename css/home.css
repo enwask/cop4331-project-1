@@ -8,6 +8,8 @@
 body {
     background-image: url('/images/home.jpg');
     background-size: cover;
+    background-position: 50% 0;
+    
 }
 
 .sidebar {
@@ -16,7 +18,7 @@ body {
     left: 0;
     height: 100vh;
     width: 80px;
-    background-color: rgba(9,44,100, 0.9);
+    background-color: #f2f2f2;
     padding: .4rem .8rem;
     transition: all 0.5s ease;
     border-radius: 0 8px 8px 0;
@@ -33,7 +35,7 @@ body {
 
 .sidebar #btn {
     position: absolute;
-    color: #fff;
+    color: rgb(9,44,100);
     top: .4rem;
     left: 50%;
     font-size: 1.2rem;
@@ -47,7 +49,7 @@ body {
 }
 
 .sidebar .top .logo {
-    color: #fff;
+    color: rgb(9,44,100);
     display: flex;
     height: 50px;
     width: 100%;
@@ -79,7 +81,7 @@ body {
 }
 
 .sidebar ul li a {
-    color: #fff;
+    color: rgb(9,44,100);
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -87,8 +89,8 @@ body {
 }
 
 .sidebar ul li a:hover {
-    background-color: #fff;
-    color: #455DE6;
+    background-color:rgb(9,44,100);
+    color: #f2f2f2;
 }
 
 .sidebar ul li a i {
@@ -101,6 +103,7 @@ body {
 
 .sidebar .nav-item {
     opacity: 0;
+    white-space: nowrap;
 }
 
 .sidebar.active .nav-item {
@@ -111,14 +114,17 @@ body {
     position: absolute;
     left: 126px;
     top: 50%;
-    color: #fff;
+    color:rgb(9,44,100);
     transform: translate(-50%, -50%);
-    background-color: rgba(9,44,100,0.9);
+    background-color: #f2f2f2;
     border-radius: 0.6rem;
     padding: .4rem 1.2rem;
     line-height: 1.8rem;
     z-index: 20;
     opacity: 0;
+
+    white-space: nowrap;
+
 }
 
 .sidebar ul li:hover .tooltip {
@@ -167,7 +173,7 @@ body {
 
 .main-content .top .bigButtons button {
     position: relative;
-    background: rgba(9,44,100,0.9);
+    background: rgb(9,44,100);
     border-radius: 12px;
     padding: 15px;
     margin: 10px;
@@ -183,30 +189,11 @@ body {
     transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.main-content .top .SearchUI .searchButton {
-    display: flex;
-    padding: 10px 10px;
+#searchButton i {
+    padding-top: 10px;
 }
 
-.main-content .top .SearchUI .searchButton button {
-    position: relative;
-    background: none;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 10px;
-    width: 20px;
-    height: 30px;
-    font-size: 18px;
-    display: flex;
-    border:none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    left: 40px;
-    
-}
+
 
 
 .main-content .top .searchContainer {
@@ -219,8 +206,10 @@ body {
     padding: 10px 20px;
     display: flex;
     cursor: pointer;
-    background: #fff;
+    background: #f2f2f2;
     margin: 0 auto;
+    border-style: solid;
+    border-color: rgb(9,44,100);
 
 }
 
@@ -234,4 +223,71 @@ body {
     padding: 10px 15px;
     display: flex;
 
+}
+
+#contactTable {
+    display: block;
+    height: 600px;
+}
+
+table {
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 3rem;
+
+}
+
+
+.table-content {
+    height: 400px;
+    overflow-x: auto;
+    margin: 0px;
+}
+
+
+
+
+
+
+#contacts tr:hover td {
+    background-color: rgb(9,44,100); 
+    color: #f2f2f2;
+}
+
+#contacts th {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 1.2rem;
+    color: rgb(9, 44, 100);
+    background-color: #f2f2f2;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+#contacts td {
+    padding: 10px 15px;
+    text-align: left;
+    font-weight: normal;
+    font-size: 1rem;
+    vertical-align: middle;
+    color: rgb(1,44,100);
+    border-radius: 12px;
+    background-color: #f2f2f2;
+}
+
+.tables ::-webkit-scrollbar {
+    width: 1rem;
+    padding-right:2rem;
+}
+
+.tables ::-webkit-scrollbar-track {
+    background: #f2f2f2;
+    border-radius: 100vw;
+    margin-block: .5em;
+}
+
+.tables ::-webkit-scrollbar-thumb {
+    background: rgb(9,44,100);
+    border-radius: 100vw;
+    border: .25em solid #fff;
 }

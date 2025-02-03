@@ -168,7 +168,6 @@ function doRegister()
 	
 }
 
-
 function createContact()
 {
 		let firstName = document.getElementById("firstName").value;
@@ -215,12 +214,13 @@ function createContact()
 }
 function searchContacts()
 {
-		let search = document.getElementById("searchBar").value;
-		document.getElementById("contactSearchResult").innerHTML = "";
-		
-		let contactList = "";
-	
-		let tmp = {query:search, userId:userId};
+	const query = document.getElementById("query").value;
+	const table = document.getElementById("contacts");
+	const tr = table.getElementsByTagName("tr"); //table row
+		let tmp = {
+			query:search, 
+			userId:userId}
+			;
 		let jsonPayload = JSON.stringify( tmp );
 	
 		let url = urlBase + '/search_contacts.' + extension;
@@ -234,7 +234,6 @@ function searchContacts()
 			{
 				if (this.readyState == 4 && this.status == 200) 
 				{
-					document.getElementById("contactSearchResult").innerHTML = "Contacts has been retrieved";
 					let jsonObject = JSON.parse( xhr.responseText );
 					
 					for( let i=0; i<jsonObject.contacts.length; i++ )
@@ -258,5 +257,131 @@ function searchContacts()
 		}
 		
 }
+
+function editContact()
+{
+		let id = document.getElementById("contactID").value;
+		let firstName = document.getElementById("firstName").value;
+		let lastName = document.getElementById("lastName").value;
+		let phone = document.getElementById("phone").value;
+		let email = document.getElementById("email").value;
 	
+		let tmp = {contactID: id, FirstName:firstName, LastName:lastName, Phone: phone, Email:email};
+		let jsonPayload = JSON.stringify( tmp );
+		console.log(tmp); 
+
 	
+		let url = urlBase + '/edit_contact.' + extension;
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					document.getElementById("contactEditResult").innerHTML = `${firstName} ${lastName} has been edited!`;
+					setTimeout(() =>
+					{
+						document.getElementById("editContactForm").style.display = "none";
+						loadContacts();
+					}, 1500);
+				}
+				else if(this.readyState == 4){
+					document.getElementById("contactEditResult").innerHTML = "Could not update";
+				}
+			
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("contactAddResult").innerHTML = err.message;
+		}
+		return false; 
+}
+	
+function populateContact(id, firstName, lastName, email, phone)
+{
+	document.getElementById("contactID").value = id;
+	document.getElementById("firstName").value = firstName;
+	document.getElementById("lastName").value = lastName;
+	document.getElementById("email").value = email;
+	document.getElementById("phone").value = phone;
+
+	document.getElementById("editContactForm").style.display = "block"; 
+}
+function deleteContact(contactId){
+	let tmp = { ID: contactId};
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/delete_contact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST",url,true);
+	xhr.setRequestHeader("Content-type","application/json; charset=UTF-8");
+	try{
+		xhr.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+
+				let resBox = document.getElementById("contactSearchResult");
+				resBox.innerHTML = "Contact removed";
+				
+				//refresh
+				loadContacts();
+			} else if (this.readyState == 4){
+				let resBox = document.getElementById("contactSearchResult");
+				resBox.innerHTML = "Could not remove contact.";
+			}
+		};
+		xhr.send(jsonPayload);
+	} catch(err){
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}
+
+}
+function loadContacts(){
+		// API endpoint
+		let url = urlBase + "/get_contacts." + extension; 
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		
+		// No additional data needed since session stores user ID
+		let jsonPayload = JSON.stringify({}); // No additional data needed since session stores user ID
+	
+		try {
+			xhr.onreadystatechange = function () {
+				if (this.readyState === 4 && this.status === 200) {
+					let jsonObject = JSON.parse(xhr.responseText);
+	
+					if (!jsonObject.status) {
+						console.error("Error loading contacts:", jsonObject.error);
+						return;
+					}
+	
+					// Update the HTML table with contact data
+					let contacts = jsonObject.contacts;
+					let tableBody = document.getElementById("tbody");
+					tableBody.innerHTML = ""; // Clear previous entries
+	
+					for (let contact of contacts) {
+						let row = `<tr>
+							<td>${contact.ID}</td>
+							<td>${contact.FirstName}</td>
+							<td>${contact.LastName}</td>
+							<td>${contact.Phone}</td>
+							<td>${contact.Email}</td>
+       						<td><button onclick="editContact(${contact.ID})" class="edit-button">Edit</button>
+								<button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
+						</tr>`;
+						tableBody.innerHTML += row;
+					}
+				}
+			};
+			xhr.send(jsonPayload);
+		} catch (err) {
+			console.error("Error fetching contacts:", err.message);
+		}
+}
