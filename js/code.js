@@ -369,19 +369,13 @@ function loadContacts(){
 	
 					for (let contact of contacts) {
 						let row = `<tr>
-							<td>${contact.ID}</td>
 							<td>${contact.FirstName}</td>
 							<td>${contact.LastName}</td>
 							<td>${contact.Phone}</td>
 							<td>${contact.Email}</td>
-							<td>
-								<button onclick="populateContact(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}', '${contact.Email}')" class="edit-button">
-									<i class='bx bx-edit-alt'></i>
-								</button>
-								<button onclick="deleteContact(${contact.ID})" class="delete-button">
-									<i class='bx bx-trash'></i>
-								</button>
-							</td>
+       						<td>
+								<button onclick="openModal(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}', '${contact.Email}')">Edit</button>
+								<button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
 						</tr>`;
 						tableBody.innerHTML += row;
 					}
@@ -392,3 +386,21 @@ function loadContacts(){
 			console.error("Error fetching contacts:", err.message);
 		}
 }
+
+//THIS IS FOR EDIT MODUAL BOX FORM
+ function openModal(contactID, firstName, lastName, phone, email){
+	//get current contact details
+	document.getElementById("contactID").value = contactID;
+	document.getElementById("firstName").value = firstName;
+	document.getElementById("lastName").value = lastName;
+	document.getElementById("phone").value = phone;
+	document.getElementById("email").value = email;
+
+	//display modal
+	const modal = document.getElementById("contactEditModal");
+	modal.style.display="block";
+ }
+ function closeModal(){
+	const modal = document.getElementById("contactEditModal");
+	modal.style.display="none";
+ }
