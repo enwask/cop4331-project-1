@@ -311,7 +311,7 @@ function displayContacts(contacts) {
                 <td>${contact.firstName}</td>
                 <td>${contact.lastName}</td>
                 <td><a href="tel:${contact.phone}">${contact.phone}</a></td>
-                <td><a href="mailto:${contact.email}">{${contact.email}</a></td>
+                <td><a href="mailto:${contact.email}">${contact.email}</a></td>
                 <td>
                     <button onclick="populateContact(${contact.id}, '${contact.firstName}', '${contact.lastName}', '${contact.phone}', '${contact.email}')" class="edit-button">
                         <i class='bx bx-edit-alt'></i>
