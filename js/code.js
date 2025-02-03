@@ -268,6 +268,8 @@ function editContact()
 	
 		let tmp = {ContactID: id, FirstName:firstName, LastName:lastName, Phone: phone, Email:email};
 		let jsonPayload = JSON.stringify( tmp );
+		console.log(tmp); 
+
 	
 		let url = urlBase + '/edit_contact.' + extension;
 		let xhr = new XMLHttpRequest();
