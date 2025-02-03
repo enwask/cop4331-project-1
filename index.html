@@ -27,7 +27,7 @@
     <div class="form-container">
         <h1 class="form-heading">Login</h1>
 
-        <form method="POST" action="api/login.php">
+        <form onsubmit="doLogin(); return false;">
             
             <div class="input-box">
                 <input type="text" name="Login" id="Login" placeholder="Username" required> <i class='bx bx-user'></i><br><br>
@@ -37,8 +37,7 @@
                 <input type="password" name="Password" id="Password" placeholder="Password" required> <i class='bx bx-lock-alt' ></i><br><br>
             </div>
 
-            <button type="button" id="loginButton" class="buttons" style="font-family: 'Varela Round', sans-serif;"
-                onclick="doLogin();">Login</button>
+            <button type="submit" id="loginButton" class="buttons" style="font-family: 'Varela Round', sans-serif;">Login</button>
              <div class="returnJS">
                 <span id="loginResult"></span>
             </div>
