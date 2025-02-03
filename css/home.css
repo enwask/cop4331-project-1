@@ -227,7 +227,8 @@ body {
 
 #contactTable {
     display: block;
-    height: 600px;
+    height: auto;
+    overflow: visible;
 }
 
 table {
@@ -239,7 +240,8 @@ table {
 
 
 .table-content {
-    height: 400px;
+    height: auto;
+    overflow-y: visible;
     overflow-x: auto;
     margin: 0px;
 }
