@@ -54,7 +54,7 @@ $conn->close();
 function sendSearchResults($arr)
 {
     header('Content-type: application/json');
-    echo '{"status": true, "count": ' . count($arr) . ', "contacts": [' . json_encode($arr) . '], "error": ""}';
+    echo '{"status": true, "count": ' . count($arr) . ', "contacts": ' . json_encode($arr) . ', "error": ""}';
 }
 
 function searchError($msg)
