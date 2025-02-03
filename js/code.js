@@ -324,15 +324,15 @@ function loadContacts() {
 
                 for (let contact of contacts) {
                     let row = `<tr>
-							<td>${contact.firstName}</td>
-							<td>${contact.lastName}</td>
-							<td>${contact.phone}</td>
-							<td>${contact.email}</td>
+							<td>${contact['firstName']}</td>
+							<td>${contact['lastName']}</td>
+							<td>${contact['phone']}</td>
+							<td>${contact['email']}</td>
 							<td>
-								<button onclick="populateContact(${contact.id}, '${contact.firstName}', '${contact.lastName}', '${contact.phone}', '${contact.email}')" class="edit-button">
+								<button onclick="populateContact(${contact['id']}, '${contact['firstName']}', '${contact['lastName']}', '${contact['phone']}', '${contact['email']}')" class="edit-button">
 									<i class='bx bx-edit-alt'></i>
 								</button>
-								<button onclick="deleteContact(${contact.id})" class="delete-button">
+								<button onclick="deleteContact(${contact['id']})" class="delete-button">
 									<i class='bx bx-trash'></i>
 								</button>
 							</td>
@@ -378,15 +378,15 @@ function searchContacts() {
 
                 for (let contact of contacts) {
                     let row = `<tr>
-							<td>${contact.firstName}</td>
-							<td>${contact.lastName}</td>
-							<td>${contact.phone}</td>
-							<td>${contact.email}</td>
+							<td>${contact['firstName']}</td>
+							<td>${contact['lastName']}</td>
+							<td>${contact['phone']}</td>
+							<td>${contact['email']}</td>
 							<td>
-								<button onclick="populateContact(${contact.id}, '${contact.firstName}', '${contact.lastName}', '${contact.phone}', '${contact.email}')" class="edit-button">
+								<button onclick="populateContact(${contact['id']}, '${contact['firstName']}', '${contact['lastName']}', '${contact['phone']}', '${contact['email']}')" class="edit-button">
 									<i class='bx bx-edit-alt'></i>
 								</button>
-								<button onclick="deleteContact(${contact.id})" class="delete-button">
+								<button onclick="deleteContact(${contact['id']})" class="delete-button">
 									<i class='bx bx-trash'></i>
 								</button>
 							</td>
