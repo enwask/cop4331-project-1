@@ -295,8 +295,7 @@ table {
     color: #fff;
     margin-top: 25px; 
 }
-.edit-button,.delete-button{
-   
+.edit-button, .delete-button{
     color: rgb(9,44,100);;
     border: none;
     border-radius: 12px;
@@ -309,6 +308,6 @@ table {
     transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); 
 }
-.edit-button,.delete-button:hover{
+.edit-button:hover, .delete-button:hover{
     background-color: white;
 }
