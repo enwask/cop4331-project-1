@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		};
 	}
 
-    loadContacts();
-});
+}
+);
 
 
 let userId = 0;
@@ -152,7 +152,10 @@ function doRegister()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				document.getElementById("registerResult").innerHTML = `Welcome to Contact Circle ${firstName} ${lastName}!`;
-				window.location.href = "index.html";
+				setTimeout(() =>
+					{
+						window.location.href = "index.html";
+					}, 3000);
 			}
 		};
 		xhr.send(jsonPayload);
@@ -194,14 +197,11 @@ function createContact()
 			{
 				if (this.readyState == 4 && this.status == 200) 
 				{
-                    // Get response JSON
-                    let jsonObject = JSON.parse(xhr.responseText);
-                    if (jsonObject.status) { // Success!
-                        window.location.href = "home.html";
-                        return;
-                    }
-
-                    alert("Error creating contact: " + jsonObject.error);
+					document.getElementById("contactAddResult").innerHTML = `${firstName} ${lastName} has been added`;
+					setTimeout(() =>
+					{
+						window.location.href = "home.html";
+					}, 3000);
 				}
 			};
 			xhr.send(jsonPayload);
@@ -211,6 +211,51 @@ function createContact()
 			document.getElementById("contactAddResult").innerHTML = err.message;
 		}
 		return false; 
+}
+function searchContacts()
+{
+	const query = document.getElementById("query").value;
+	const table = document.getElementById("contacts");
+	const tr = table.getElementsByTagName("tr"); //table row
+		let tmp = {
+			query:search, 
+			userId:userId}
+			;
+		let jsonPayload = JSON.stringify( tmp );
+	
+		let url = urlBase + '/search_contacts.' + extension;
+		
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					let jsonObject = JSON.parse( xhr.responseText );
+					
+					for( let i=0; i<jsonObject.contacts.length; i++ )
+					{
+						let contact = jsonObject.contacts[i];
+						contactList += `${contact.firstName}, ${contact.lastName}, ${contact.phone}, ${contact.email}`;
+						if( i < jsonObject.contacts.length - 1 )
+						{
+							contactList += "<br />\r\n";
+						}
+					}
+					
+					document.getElementById("contactList").innerHTML = contactList;
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("contactSearchResult").innerHTML = err.message;
+		}
+		
 }
 
 function editContact()
@@ -295,109 +340,55 @@ function deleteContact(contactId){
 	} catch(err){
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
+
 }
-
-function loadContacts() {
-    // API endpoint
-    let url = urlBase + "/get_contacts." + extension;
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-    // No additional data needed since session stores user ID
-    let jsonPayload = JSON.stringify({}); // No additional data needed since session stores user ID
-
-    try {
-        xhr.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                let jsonObject = JSON.parse(xhr.responseText);
-
-                if (!jsonObject.status) {
-                    console.error("Error loading contacts: ", jsonObject.error);
-                    return;
-                }
-
-                // Update the HTML table with contact data
-                let contacts = jsonObject.contacts;
-                let tableBody = document.getElementById("tbody");
-                tableBody.innerHTML = ""; // Clear previous entries
-
-                contacts.forEach(contact => {
-                    let row = `<tr>
-							<td>${contact.firstName}</td>
-							<td>${contact.lastName}</td>
-							<td>${contact.phone}</td>
-							<td>${contact.email}</td>
+function loadContacts(){
+		// API endpoint
+		let url = urlBase + "/get_contacts." + extension; 
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		
+		// No additional data needed since session stores user ID
+		let jsonPayload = JSON.stringify({}); // No additional data needed since session stores user ID
+	
+		try {
+			xhr.onreadystatechange = function () {
+				if (this.readyState === 4 && this.status === 200) {
+					let jsonObject = JSON.parse(xhr.responseText);
+	
+					if (!jsonObject.status) {
+						console.error("Error loading contacts:", jsonObject.error);
+						return;
+					}
+	
+					// Update the HTML table with contact data
+					let contacts = jsonObject.contacts;
+					let tableBody = document.getElementById("tbody");
+					tableBody.innerHTML = ""; // Clear previous entries
+	
+					for (let contact of contacts) {
+						let row = `<tr>
+							<td>${contact.ID}</td>
+							<td>${contact.FirstName}</td>
+							<td>${contact.LastName}</td>
+							<td>${contact.Phone}</td>
+							<td>${contact.Email}</td>
 							<td>
-								<button onclick="populateContact(${contact.id}, '${contact.firstName}', '${contact.lastName}', '${contact.phone}', '${contact.email}')" class="edit-button">
+								<button onclick="populateContact(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}', '${contact.Email}')" class="edit-button">
 									<i class='bx bx-edit-alt'></i>
 								</button>
-								<button onclick="deleteContact(${contact.id})" class="delete-button">
+								<button onclick="deleteContact(${contact.ID})" class="delete-button">
 									<i class='bx bx-trash'></i>
 								</button>
 							</td>
 						</tr>`;
-                    tableBody.innerHTML += row;
-                });
-            }
-        };
-        xhr.send(jsonPayload);
-    } catch (err) {
-        console.error("Error fetching contacts:", err.message);
-    }
-}
-
-function searchContacts() {
-    const query = document.getElementById("query").value;
-
-    // API endpoint
-    let url = urlBase + "/search_contacts." + extension;
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-    // Prepare the search query
-    let jsonPayload = JSON.stringify({
-        query: query
-    });
-
-    try {
-        xhr.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                let jsonObject = JSON.parse(xhr.responseText);
-
-                if (!jsonObject.status) {
-                    console.error("Error loading contacts: ", jsonObject.error);
-                    return;
-                }
-
-                // Update the HTML table with contact data
-                let contacts = jsonObject.contacts;
-                let tableBody = document.getElementById("tbody");
-                tableBody.innerHTML = ""; // Clear previous entries
-
-                contacts.forEach(contact => {
-                    let row = `<tr>
-							<td>${contact.firstName}</td>
-							<td>${contact.lastName}</td>
-							<td>${contact.phone}</td>
-							<td>${contact.email}</td>
-							<td>
-								<button onclick="populateContact(${contact.id}, '${contact.firstName}', '${contact.lastName}', '${contact.phone}', '${contact.email}')" class="edit-button">
-									<i class='bx bx-edit-alt'></i>
-								</button>
-								<button onclick="deleteContact(${contact.id})" class="delete-button">
-									<i class='bx bx-trash'></i>
-								</button>
-							</td>
-						</tr>`;
-                    tableBody.innerHTML += row;
-                });
-            }
-        };
-        xhr.send(jsonPayload);
-    } catch (err) {
-        console.error("Error fetching contacts:", err.message);
-    }
-    return false;
+						tableBody.innerHTML += row;
+					}
+				}
+			};
+			xhr.send(jsonPayload);
+		} catch (err) {
+			console.error("Error fetching contacts:", err.message);
+		}
 }
