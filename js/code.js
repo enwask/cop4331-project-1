@@ -258,55 +258,6 @@ function searchContacts()
 		
 }
 
-function getSearchResults() {
-    // POST to api/search_contacts.php with query
-    const query = document.getElementById("query").value;
-    // use fetch to send POST request
-    fetch("api/search_contacts.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            query: query
-        })
-    }).then(res => {
-        return res.json();
-    }).then(res => {
-        let resultBox = document.querySelector('#result');
-        resultBox.value = JSON.stringify(res, null, 2);
-        resultBox.rows = JSON.stringify(res, null, 2).split('\n').length;
-    });
-    return false;
-}
-
-function searchContacts() {
-    const content = document.getElementById("query");
-    const selections = content.value.toUpperCase().split(' ');
-    const table = document.getElementById("contacts");
-    const tr = table.getElementsByTagName("tr");// Table Row
-
-    for (let i = 0; i < tr.length; i++) {
-        const td_fn = tr[i].getElementsByTagName("td")[0];// Table Data: First Name
-        const td_ln = tr[i].getElementsByTagName("td")[1];// Table Data: Last Name
-
-        if (td_fn && td_ln) {
-            const txtValue_fn = td_fn.textContent || td_fn.innerText;
-            const txtValue_ln = td_ln.textContent || td_ln.innerText;
-            tr[i].style.display = "none";
-
-            for (selection of selections) {
-                if (txtValue_fn.toUpperCase().indexOf(selection) > -1) {
-                    tr[i].style.display = "";
-                }
-                if (txtValue_ln.toUpperCase().indexOf(selection) > -1) {
-                    tr[i].style.display = "";
-                }
-            }
-        }
-    }
-}
-
 function editContact()
 {
 		let id = document.getElementById("contactID").value;
@@ -372,7 +323,7 @@ function deleteContact(contactId)
 				let resBox = document.getElementById("contactSearchResult");
 				resBox.innerHTML = "Contact removed";
 				//refresh
-				loadContacts();
+				searchContacts();
 			} else if (this.readyState == 4){
 				let resBox = document.getElementById("contactSearchResult");
 				resBox.innerHTML = "Could not remove contact.";
@@ -415,7 +366,10 @@ function loadContacts(){
 							<td>${contact.LastName}</td>
 							<td>${contact.Phone}</td>
 							<td>${contact.Email}</td>
-							<td><button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
+							<td>
+								<button onclick="populateContact(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}','${contact.Email}')" class="edit-button">Edit</button>
+								<button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button>
+							</td>
 						</tr>`;
 						tableBody.innerHTML += row;
 					}
