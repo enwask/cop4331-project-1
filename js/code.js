@@ -195,7 +195,7 @@ function createContact()
 				if (this.readyState == 4 && this.status == 200) 
 				{
 					document.getElementById("contactAddResult").innerHTML = `${firstName} ${lastName} has been added`;
-					window.location.href = "index.html";
+					window.location.href = "home.html";
 				}
 			};
 			xhr.send(jsonPayload);
