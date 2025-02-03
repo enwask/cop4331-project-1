@@ -35,9 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         FROM Contacts
         WHERE UserID = ?
         AND (LOWER(FirstName) LIKE LOWER(?)
-             OR LOWER(LastName) LIKE LOWER(?))
+             OR LOWER(LastName) LIKE LOWER(?)
              OR Phone LIKE ?
-             OR Email LIKE ?");
+             OR Email LIKE ?)");
 
     // Bind user ID and query (with wildcards on both sides)
     $stmt->bind_param("sssss", $id, $query, $query, $phone_query, $query);
