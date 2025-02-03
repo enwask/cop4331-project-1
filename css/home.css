@@ -253,9 +253,14 @@ table {
 }
 
 
+#contacts td a {
+    color: var(--dark-blue);
+    text-decoration: none;
+}
 
-
-
+#contacts tr:hover td a {
+    color: var(--whitish);
+}
 
 #contacts tr:hover td {
     background-color: var(--dark-blue);
