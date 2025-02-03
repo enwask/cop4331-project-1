@@ -212,7 +212,6 @@ function createContact()
 		}
 		return false; 
 }
-}
 
 function editContact()
 {
@@ -296,6 +295,7 @@ function deleteContact(contactId){
 	} catch(err){
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
+}
 
 function loadContacts() {
     // API endpoint
