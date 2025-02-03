@@ -85,10 +85,10 @@
              <!--search-->
             <div class="SearchUI">
                 <div class="searchContainer">
-                  <input onkeyup=searchContacts() type="text" id="query" class="input-search" placeholder="Search"/>
+                  <input onkeyup="return searchContacts();" type="text" id="query" class="input-search" placeholder="Search"/>
                    <span id="contactSearchResult"></span>
                   <p id="contactList"></p>
-                  <div class="searchButton">
+                  <div class="searchButton" onclick="return searchContacts();">
                         <i class='bx bx-search' style="font-size:25px; color: rgb(1,40,100);" aria-hidden="true"></i>
                   </div>
                  </div>

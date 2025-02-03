@@ -1,36 +1,66 @@
 <?php
-// Start the session to get the logged-in user's ID
+// Start/resume session (access session data) 
 session_start();
 include 'db.php';
 
 // Connection error check
 if ($conn->connect_error) {
-    editContactError("Failed to connect to database");
+    searchError("Failed to connect to database");
     exit();
 }
 
-// check if user is logged in
-if (!isset($_SESSION["ID"])) {
-    echo json_encode(["status" => false, "error" => "Invalid session"]);
+// Check that the session has a user ID
+if ($_SESSION["ID"] === null) {
+    searchError("Invalid session");
+    exit();
+}
+$id = $_SESSION["ID"];
+
+// Check if form is sumbmitted 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Prepare SQL statement for search
+    $stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email
+        FROM Contacts
+        WHERE UserID = ?");
+
+    // Bind user ID and query (with wildcards on both sides)
+    $stmt->bind_param("s", $id);
+    $stmt->execute();
+
+    // Get the results and store them in an array
+    $result = $stmt->get_result();
+    $arr = array();
+    while ($row = $result->fetch_assoc()) {
+        array_push($arr, array(
+            "id" => $row['ID'],
+            "firstName" => $row['FirstName'],
+            "lastName" => $row['LastName'],
+            "phone" => $row['Phone'],
+            "email" => $row['Email']
+        ));
+    }
+
+    // Send the results back to the client
+    sendSearchResults($arr);
+    $stmt->close();
+} else {
+    searchError("Invalid request");
     exit();
 }
 
-// Fetched user's ID
-$userId = $_SESSION["ID"]; 
-
-// Query to fetch contacts for the logged-in user
-$stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email FROM Contacts WHERE UserID = ?");
-$stmt->bind_param("i", $userId);
-$stmt->execute();
-$result = $stmt->get_result();
-
-$contacts = [];
-while ($row = $result->fetch_assoc()) {
-    $contacts[] = $row;
-}
-
-echo json_encode(["status" => true, "contacts" => $contacts]);
-
-$stmt->close();
+// Close the SQL connection
 $conn->close();
+
+function sendSearchResults($arr)
+{
+    header('Content-type: application/json');
+    echo '{"status": true, "count": ' . count($arr) . ', "contacts": [' . json_encode($arr) . '], "error": ""}';
+}
+
+function searchError($msg)
+{
+    header('Content-type: application/json');
+    echo '{"status": false, "count": 0, "contacts": [], "error": "' . $msg . '"}';
+}
+
 ?>
