@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Varela Round, sans-serif 
+    font-family: "Poppins", sans-serif 
 }
 
 body {
@@ -18,10 +18,13 @@ body {
     left: 0;
     height: 100vh;
     width: 80px;
-    background-color: #f2f2f2;
+    background-color: rgba(9,44,100,0.7);
+    border:  2px solid rgba(255, 255, 255, 1);
+    border-left: 0;
+    backdrop-filter: blur(7px);
     padding: .4rem .8rem;
     transition: all 0.5s ease;
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 10px 10px 0;
 }
 
 .sidebar.active ~ .main-content {
@@ -35,7 +38,7 @@ body {
 
 .sidebar #btn {
     position: absolute;
-    color: rgb(9,44,100);
+    color: #fff;
     top: .4rem;
     left: 50%;
     font-size: 1.2rem;
@@ -49,7 +52,7 @@ body {
 }
 
 .sidebar .top .logo {
-    color: rgb(9,44,100);
+    color: #fff;
     display: flex;
     height: 50px;
     width: 100%;
@@ -81,23 +84,23 @@ body {
 }
 
 .sidebar ul li a {
-    color: #cacaca;
+    color: #fff;
     display: flex;
     align-items: center;
     text-decoration: none;
-    border-radius: 0.8rem;
+    border-radius: 40px;
 }
 
 .sidebar ul li a:hover {
-    background-color:rgb(9,44,100);
-    color: #f2f2f2;
+    background-color: #fff;
+    color: rgb(9,44,100);
 }
 
 .sidebar ul li a i {
     min-width: 50px;
     text-align: center;
     height: 50px;
-    border-radius: 12px;
+    border-radius: 40px;
     line-height: 50px;
 }
 
@@ -116,19 +119,20 @@ body {
     top: 50%;
     color:rgb(9,44,100);
     transform: translate(-50%, -50%);
-    background-color: #f2f2f2;
-    border-radius: 0.6rem;
+    background-color: rgba(255,255,255,1);
+    border-radius: 40px;
+    border:2px solid rgba(9, 44, 100, 1);
     padding: .4rem 1.2rem;
     line-height: 1.8rem;
     z-index: 20;
     opacity: 0;
-
     white-space: nowrap;
 
 }
 
 .sidebar ul li:hover .tooltip {
     opacity: 1;
+    z-index: 20;
 }
 
 .sidebar.active ul li .tooltip {
@@ -150,8 +154,10 @@ body {
 }
 
 .main-content .top {
+    display: flex;
     justify-content: center;
     text-align: center;
+    align-items: center;
     width: 100%;
     min-height: 100px;
 }
@@ -174,42 +180,52 @@ body {
 .main-content .top .bigButtons button {
     position: relative;
     background: rgb(9,44,100);
-    border-radius: 12px;
+    border-radius: 40px;
     padding: 15px;
     margin: 10px;
-    width: 50px;
+    width: 200px;
     height: 50px;
     font-size: 18px;
+    color: #fff;
     display: flex;
-    border:none;
+    border:2px solid rgba(255, 255, 255, 1);
+    backdrop-filter: blur(7px);
+    border-radius: 40px;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: center;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-#searchButton i {
-    padding-top: 10px;
+.bigButtons i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+
 }
 
-
+.SearchUI {
+    width:400px;
+    align-items: center;
+}
 
 
 .main-content .top .searchContainer {
     position: relative;
     justify-content: center;
     align-items: center;
-    height: 35px;
+    height: 50px;
     width: 400px;
-    border-radius: 12px;
-    padding: 10px 20px;
+    border-radius: 40px;
     display: flex;
     cursor: pointer;
-    background: #f2f2f2;
+    background: rgba(255, 255, 255, 0.7);
     margin: 0 auto;
     border-style: solid;
-    border-color: rgb(9,44,100);
+    border: 2px solid rgba(255, 255, 255, 1);
 
 }
 
@@ -220,47 +236,58 @@ body {
     outline: none;
     border-radius: 12px;
     font-size: 16px;
-    padding: 10px 15px;
+    padding: 20px 45px 20px 20px;
     display: flex;
 
 }
 
 #contactTable {
+    position: relative;
     display: block;
-    height: 600px;
+    height: auto;
+    overflow: visible;
+    z-index: -1;
 }
 
 table {
     width: 100%;
-    padding-right: 1rem;
-    padding-left: 3rem;
 
 }
+
 
 
 .table-content {
-    height: 400px;
+    position:relative;
+    height: 600px;
+    overflow-y: visible;
     overflow-x: auto;
-    margin: 0px;
+    margin: 40px;
+    z-index: -1;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 7px;
+    border-radius: 10px;
+    background: rgba(9,44,100,0.7);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 1);
+    backdrop-filter: blur(7px);
 }
 
-
-
-
-
-
 #contacts tr:hover td {
-    background-color: rgb(9,44,100); 
-    color: #f2f2f2;
+   background: rgba(9,44,100,0.7);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 1);
 }
 
 #contacts th {
     padding: 12px 15px;
+    margin: 2px;
     text-align: left;
     font-size: 1.2rem;
     color: rgb(9, 44, 100);
-    background-color: #f2f2f2;
-    border-radius: 12px;
+    background-color: #fff;
+    border-radius: 40px;
     font-weight: bold;
 }
 
@@ -270,9 +297,9 @@ table {
     font-weight: normal;
     font-size: 1rem;
     vertical-align: middle;
-    color: rgb(1,44,100);
-    border-radius: 12px;
-    background-color: #f2f2f2;
+    color: rgb(9,44,100);
+    border-radius: 40px;
+    background-color: rgba(255,255,255,0.7);;
     width: 30px;
 }
 
@@ -282,7 +309,7 @@ table {
 }
 
 .tables ::-webkit-scrollbar-track {
-    background: #f2f2f2;
+    background: #fff;
     border-radius: 100vw;
     margin-block: .5em;
 }
