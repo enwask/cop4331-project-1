@@ -369,13 +369,19 @@ function loadContacts(){
 	
 					for (let contact of contacts) {
 						let row = `<tr>
+							<td>${contact.ID}</td>
 							<td>${contact.FirstName}</td>
 							<td>${contact.LastName}</td>
 							<td>${contact.Phone}</td>
 							<td>${contact.Email}</td>
-       						<td>
-								<button onclick="populateContact(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}', '${contact.Email}')">Edit</button>
-								<button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
+							<td>
+								<button onclick="populateContact(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}', '${contact.Email}')" class="edit-button">
+									<i class='bx bx-edit-alt'></i>
+								</button>
+								<button onclick="deleteContact(${contact.ID})" class="delete-button">
+									<i class='bx bx-trash'></i>
+								</button>
+							</td>
 						</tr>`;
 						tableBody.innerHTML += row;
 					}
