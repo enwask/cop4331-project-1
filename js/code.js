@@ -334,3 +334,46 @@ function deleteContact(contactId)
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }
+function loadContacts(){
+		// API endpoint
+		let url = urlBase + "/get_contacts." + extension; 
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		
+		// No additional data needed since session stores user ID
+		let jsonPayload = JSON.stringify({}); // No additional data needed since session stores user ID
+	
+		try {
+			xhr.onreadystatechange = function () {
+				if (this.readyState === 4 && this.status === 200) {
+					let jsonObject = JSON.parse(xhr.responseText);
+	
+					if (!jsonObject.status) {
+						console.error("Error loading contacts:", jsonObject.error);
+						return;
+					}
+	
+					// Update the HTML table with contact data
+					let contacts = jsonObject.contacts;
+					let tableBody = document.getElementById("tbody");
+					tableBody.innerHTML = ""; // Clear previous entries
+	
+					for (let contact of contacts) {
+						let row = `<tr>
+							<td>${contact.id}</td>
+							<td>${contact.FirstName}</td>
+							<td>${contact.LastName}</td>
+							<td>${contact.Phone}</td>
+							<td>${contact.Email}</td>
+							<td><button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
+						</tr>`;
+						tableBody.innerHTML += row;
+					}
+				}
+			};
+			xhr.send(jsonPayload);
+		} catch (err) {
+			console.error("Error fetching contacts:", err.message);
+		}
+}
