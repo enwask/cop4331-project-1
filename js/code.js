@@ -372,7 +372,7 @@ function deleteContact(contactId)
 				let resBox = document.getElementById("contactSearchResult");
 				resBox.innerHTML = "Contact removed";
 				//refresh
-				searchContacts();
+				loadContacts();
 			} else if (this.readyState == 4){
 				let resBox = document.getElementById("contactSearchResult");
 				resBox.innerHTML = "Could not remove contact.";
