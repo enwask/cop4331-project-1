@@ -24,14 +24,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Build SQL statement from the query
     $query = "%" . $_POST['query'] . "%";
 
+    // Process the query for phone number fuzzy search:
+    // Replace hyphens, parentheses & whitespace with wildcards, then remove duplicates
+    $phone_query = "%" . $_POST['query'] . "%";
+    $phone_query = preg_replace('/[\s\-\(\)]/', '%', $phone_query);
+    $phone_query = preg_replace('/%+/', '%', $phone_query);
+
+    // Prepare SQL statement for search
     $stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email
         FROM Contacts
-        WHERE UserId = ?
-        AND (LOWER(FirstName) LIKE LOWER(?) OR LOWER(LastName) LIKE LOWER(?))");
+        WHERE UserID = ?
+        AND (LOWER(FirstName) LIKE LOWER(?)
+             OR LOWER(LastName) LIKE LOWER(?))
+             OR Phone LIKE ?
+             OR Email LIKE ?");
+
     // Bind user ID and query (with wildcards on both sides)
-    $stmt->bind_param("sss", $id, $query, $query);
+    $stmt->bind_param("sss", $id, $query, $query, $phone_query, $query);
     $stmt->execute();
 
+    // Get the results and store them in an array
     $result = $stmt->get_result();
     $arr = array();
     while ($row = $result->fetch_assoc()) {
@@ -44,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ));
     }
 
+    // Send the results back to the client
     sendSearchResults($arr);
     $stmt->close();
 } else {
