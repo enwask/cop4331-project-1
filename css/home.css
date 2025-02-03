@@ -291,3 +291,7 @@ table {
     border-radius: 100vw;
     border: .25em solid #fff;
 }
+#contactEditResult{
+    color: #fff;
+    margin-top: 25px; 
+}

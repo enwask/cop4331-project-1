@@ -266,7 +266,7 @@ function editContact()
 		let phone = document.getElementById("phone").value;
 		let email = document.getElementById("email").value;
 	
-		let tmp = {contactID: id, FirstName:firstName, LastName:lastName, Phone: phone, Email:email};
+		let tmp = {ID: id, FirstName:firstName, LastName:lastName, Phone: phone, Email:email};
 		let jsonPayload = JSON.stringify( tmp );
 		console.log(tmp); 
 
@@ -282,6 +282,7 @@ function editContact()
 				if (this.readyState == 4 && this.status == 200) 
 				{
 					document.getElementById("contactEditResult").innerHTML = `${firstName} ${lastName} has been edited!`;
+					console.log('Server Response:', this.responseText);
 					setTimeout(() =>
 					{
 						document.getElementById("editContactForm").style.display = "none";
@@ -302,14 +303,14 @@ function editContact()
 		return false; 
 }
 	
-function populateContact(id, firstName, lastName, email, phone)
+
+function populateContact(id, firstName, lastName, phone, email)
 {
 	document.getElementById("contactID").value = id;
 	document.getElementById("firstName").value = firstName;
 	document.getElementById("lastName").value = lastName;
-	document.getElementById("email").value = email;
 	document.getElementById("phone").value = phone;
-
+	document.getElementById("email").value = email;
 	document.getElementById("editContactForm").style.display = "block"; 
 }
 function deleteContact(contactId){
@@ -368,12 +369,12 @@ function loadContacts(){
 	
 					for (let contact of contacts) {
 						let row = `<tr>
-							<td>${contact.ID}</td>
 							<td>${contact.FirstName}</td>
 							<td>${contact.LastName}</td>
 							<td>${contact.Phone}</td>
 							<td>${contact.Email}</td>
-       						<td><button onclick="editContact(${contact.ID})" class="edit-button">Edit</button>
+       						<td>
+								<button onclick="populateContact(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}', '${contact.Email}')">Edit</button>
 								<button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
 						</tr>`;
 						tableBody.innerHTML += row;
