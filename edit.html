@@ -1,35 +1,103 @@
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Edit contact</title>
-    <link rel="stylesheet" href="css/home.css">
+   <meta charset="UTF-8">
+    <link rel="preload" href="images/home.jpg" as="image">
+    <link rel="preload" href="images/whiteshark.png" as="image">
+    <title> Login</title>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+    <link rel="stylesheet" href="css/addContac.css">
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <h1 class="heading">Welcome to Contact Circle!</h1>
+    <div class="sidebar">
+      <div class="top">
+          <div class="logo">
+              <span>ContactCircle</span>
+          </div>
+          <i class="bx bx-menu" id="btn"></i>
+      </div>
+      <ul>
+            <li>
+                <a href="http://contactcircle.xyz/home.html">
+                    <i class='bx bxs-contact'></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+            <li>
+                <a href="http://contactcircle.xyz/create.html">
+                    <i class='bx bx-user-plus'></i>
+                    <span class="nav-item">Add Contact</span>
+                </a>
+                <span class="tooltip">Add Contact</span>
+            </li>
+            <li>
+                <a href="http://contactcircle.xyz/edit.html">
+                    <i class='bx bx-edit-alt'></i>
+                    <span class="nav-item">Edit</span>
+                </a>
+                <span class="tooltip">Edit</span>
+            </li>
+            <li>
+                <a href="https://github.com/enwask/cop4331-project-1">
+                    <i class='bx bxl-github'></i>
+                    <span class="nav-item">Github</span>
+                </a>
+                <span class="tooltip">Github</span>
+            </li>
+            <li>
+                <a href="#" onclick="doLogout(); return false;">
+                    <i class='bx bx-log-out'></i>
+                    <span class="nav-item">Logout</span>
+                </a>
+                <span class="tooltip">Logout</span>
+            </li>
+        </ul>
+  </div>
+  <div class="main-content">
+      <div class="top">
     <div class="form-container">
-        <h1 class="form-heading">Edit contact</h1>
+        <h1 class="form-heading">Edit Contact</h1>
+        
         <form onsubmit="return editContact();">
-            <label for="ID">Contact ID:</label>
-            <input type="number" name="ID" required><br><br>
-
-            <label for="FirstName">First name (blank to keep old value):</label>
-            <input type="text" name="FirstName"><br><br>
-
-            <label for="LastName">Last name (blank to keep old value):</label>
-            <input type="text" name="LastName"><br><br>
-
-            <label for="Email">Email (blank to keep old value):</label>
-            <input type="email" name="Email"><br><br>
-
-            <label for="Phone">Phone (blank to keep old value):</label>
-            <input type="tel" name="Phone"><br><br>
-
-            <button type="submit">Submit</button>
+            
+            <div class="input-box">
+            <input type="number" name="ID" placeholder="Contact ID" required><br><br>
+            </div>
+            <div class="input-box">
+            <input type="text" name="FirstName" placeholder="First Name">  <br><br>
+            </div>
+            <div class="input-box">
+            <input type="text" name="LastName" placeholder="Last Name"><br><br>
+            </div>
+            <div class="input-box">
+            <input type="email" name="Email" placeholder="Email"><br><br>
+            </div>
+            <div class="input-box">
+            <input type="tel" name="Phone" placeholder="Phone Number"><br><br>
+            </div>
+            
+            <div class="form-text">
+                <p>To keep old information, leave blank.</p>
+            </div>
+            
+            <button type="submit" class="buttons">Submit</button>
+            
+            <div class="contact-table">
             <textarea contenteditable="false" name="result" id="result" cols="30" rows="10"></textarea>
+            </div>
         </form>
+    </div>
+    </div>
     </div>
     <script src="js/code.js"></script>
 </body>
