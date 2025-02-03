@@ -287,13 +287,13 @@ function deleteContact(contactId){
 			if(this.readyState == 4 && this.status == 200){
 
 				let resBox = document.getElementById("contactSearchResult");
-				resBox.innerHTML = "Contact removed";
+				resBox.innerHTML = " "; //contact removed
 				
 				//refresh
 				loadContacts();
 			} else if (this.readyState == 4){
 				let resBox = document.getElementById("contactSearchResult");
-				resBox.innerHTML = "Could not remove contact.";
+				resBox.innerHTML = " "; //could not remove contact
 			}
 		};
 		xhr.send(jsonPayload);
