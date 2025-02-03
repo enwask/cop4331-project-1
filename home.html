@@ -12,7 +12,7 @@
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
             readCookie();
-	        loadContacts();
+	    loadContacts();
         }, false);
     </script>
 </head>
@@ -85,10 +85,10 @@
              <!--search-->
             <div class="SearchUI">
                 <div class="searchContainer">
-                  <input onkeyup="return searchContacts();" type="text" id="query" class="input-search" placeholder="Search"/>
+                  <input onkeyup=searchContacts() type="text" id="query" class="input-search" placeholder="Search"/>
                    <span id="contactSearchResult"></span>
                   <p id="contactList"></p>
-                  <div class="searchButton" onclick="return searchContacts();">
+                  <div class="searchButton">
                         <i class='bx bx-search' style="font-size:25px; color: rgb(1,40,100);" aria-hidden="true"></i>
                   </div>
                  </div>
@@ -96,7 +96,7 @@
             </div>
              <!--buttons-->
             <div class="bigButtons">
-                    <button type="button" onclick="window.location = 'create.html'; return false;"> <i class='bx bx-user-plus' style="font-size:30px; color: #fff;" aria-hidden="true"></i></button> 
+                    <button type="button" id="openModalButton"> <i class='bx bx-user-plus' style="font-size:30px; color: #fff;" aria-hidden="true"></i></button> 
                 </div>
                 <div class="bigButtons">
                     <button type="button"> <i class='bx bx-trash' style="font-size:30px; color: #fff;" aria-hidden="true"></i></button> 
@@ -111,6 +111,7 @@
                 <table id="contacts" cellpadding="0" border="0">
                     <thread>
                         <tr>
+                            <th>ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Phone</th>
@@ -124,27 +125,51 @@
                 </table>
             </div>
         </div>
-	<!--EIDT CONTACT FORM-->
-    	<div id="editContactForm" style="display:none">
-            <h3>Edit Contact</h3>
-                <form id="editContactFormContent" onsubmit="return editContact();">
-                    <input type="hidden" id="contactID" name="contactID">
+
+        <div id="addContactModal" class="modal">
+            <div class ="modal-content"></div>
+            <span id="closeModalButton" class="close()">&times;</span>
+            <h2>Add New Contact</h2>
+            <form id= "contactForm" onsubmit="return createContact();">
                 <label for="firstName">First Name:</label>
                 <input type="text" name="FirstName" id="firstName" required><br><br>
-                        
+                
                 <label for="lastName">Last Name:</label>
                 <input type="text" name="LastName" id="lastName" required><br><br>
-            
+    
                 <label for="phone">Phone Number:</label>
                 <input type="text" name="Phone" id="phone" required><br><br>
-            
+    
                 <label for="email">Email:</label>
-                    <input type="text" name="Email" id="email" required><br><br>
-                        
+                <input type="text" name="Email" id="email" required><br><br>
+    
+                <button type="submit" id="addContactButton" class="buttons" style="font-family: 'Varela Round', sans-serif">Add Contact</button>
+            </form>
+            </div>
+        </div>
+
+        <div id="editContactForm" style="display:none;">
+            <h3>Edit Contact</h3>
+            <form id="editContactFormContent" onsubmit="return editContact();">
+                <input type="hidden" id="contactID" name="contactID">
+                <label for="firstName">First Name:</label>
+                <input type="text" name="FirstName" id="firstName" required><br><br>
+                
+                <label for="lastName">Last Name:</label>
+                <input type="text" name="LastName" id="lastName" required><br><br>
+    
+                <label for="phone">Phone Number:</label>
+                <input type="text" name="Phone" id="phone" required><br><br>
+    
+                <label for="email">Email:</label>
+                <input type="text" name="Email" id="email" required><br><br>
+                
                 <button type="submit">Save</button>
                 <div id="contactEditResult"></div>
+            
             </form>
         </div>
+    </div>
   
   </body>
 
