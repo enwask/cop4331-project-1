@@ -302,6 +302,29 @@ function deleteContact(contactId){
 	}
 }
 
+function displayContacts(contacts) {
+    let tableBody = document.getElementById("tbody");
+    tableBody.innerHTML = ""; // Clear previous entries
+
+    contacts.forEach(contact => {
+        let row = `<tr>
+                <td>${contact.firstName}</td>
+                <td>${contact.lastName}</td>
+                <td><a href="tel:${contact.phone}">${contact.phone}</a></td>
+                <td><a href="mailto:${contact.email}">{${contact.email}</a></td>
+                <td>
+                    <button onclick="populateContact(${contact.id}, '${contact.firstName}', '${contact.lastName}', '${contact.phone}', '${contact.email}')" class="edit-button">
+                        <i class='bx bx-edit-alt'></i>
+                    </button>
+                    <button onclick="deleteContact(${contact.id})" class="delete-button">
+                        <i class='bx bx-trash'></i>
+                    </button>
+                </td>
+            </tr>`;
+        tableBody.innerHTML += row;
+    });
+}
+
 function loadContacts() {
     // API endpoint
     let url = urlBase + "/get_contacts." + extension;
@@ -324,26 +347,7 @@ function loadContacts() {
 
                 // Update the HTML table with contact data
                 let contacts = jsonObject.contacts;
-                let tableBody = document.getElementById("tbody");
-                tableBody.innerHTML = ""; // Clear previous entries
-
-                contacts.forEach(contact => {
-                    let row = `<tr>
-							<td>${contact.firstName}</td>
-							<td>${contact.lastName}</td>
-							<td>${contact.phone}</td>
-							<td>${contact.email}</td>
-							<td>
-								<button onclick="populateContact(${contact.id}, '${contact.firstName}', '${contact.lastName}', '${contact.phone}', '${contact.email}')" class="edit-button">
-									<i class='bx bx-edit-alt'></i>
-								</button>
-								<button onclick="deleteContact(${contact.id})" class="delete-button">
-									<i class='bx bx-trash'></i>
-								</button>
-							</td>
-						</tr>`;
-                    tableBody.innerHTML += row;
-                });
+                displayContacts(contacts);
             }
         };
         xhr.send(jsonPayload);
@@ -378,26 +382,7 @@ function searchContacts() {
 
                 // Update the HTML table with contact data
                 let contacts = jsonObject.contacts;
-                let tableBody = document.getElementById("tbody");
-                tableBody.innerHTML = ""; // Clear previous entries
-
-                contacts.forEach(contact => {
-                    let row = `<tr>
-							<td>${contact.firstName}</td>
-							<td>${contact.lastName}</td>
-							<td>${contact.phone}</td>
-							<td>${contact.email}</td>
-							<td>
-								<button onclick="populateContact(${contact.id}, '${contact.firstName}', '${contact.lastName}', '${contact.phone}', '${contact.email}')" class="edit-button">
-									<i class='bx bx-edit-alt'></i>
-								</button>
-								<button onclick="deleteContact(${contact.id})" class="delete-button">
-									<i class='bx bx-trash'></i>
-								</button>
-							</td>
-						</tr>`;
-                    tableBody.innerHTML += row;
-                });
+                displayContacts(contacts);
             }
         };
         xhr.send(jsonPayload);
