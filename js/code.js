@@ -285,8 +285,11 @@ function editContact()
 					setTimeout(() =>
 					{
 						document.getElementById("editContactForm").style.display = "none";
-						window.location.reload();
+						loadContacts();
 					}, 1500);
+				}
+				else if(this.readyState == 4){
+					document.getElementById("contactEditResult").innerHTML = "Could not update";
 				}
 			
 			};
@@ -301,7 +304,6 @@ function editContact()
 	
 function populateContact(id, firstName, lastName, email, phone)
 {
-
 	document.getElementById("contactID").value = id;
 	document.getElementById("firstName").value = firstName;
 	document.getElementById("lastName").value = lastName;
@@ -371,8 +373,8 @@ function loadContacts(){
 							<td>${contact.LastName}</td>
 							<td>${contact.Phone}</td>
 							<td>${contact.Email}</td>
-       							<td><button onclick="editContact(${contact.ID})" class="edit-button">Edit</button></td>
-							<td><button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
+       						<td><button onclick="editContact(${contact.ID})" class="edit-button">Edit</button>
+								<button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
 						</tr>`;
 						tableBody.innerHTML += row;
 					}
