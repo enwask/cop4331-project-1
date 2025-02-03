@@ -401,3 +401,21 @@ function searchContacts() {
     }
     return false;
 }
+
+function openModal(contactID, firstName, lastname, phone, email)
+{
+	document.getElementById("contactID").value = contactID;
+	document.getElementById("firstName").value = firstName;
+	document.getElementById("lastName").value = lastName;
+	document.getElementById("phone").value = phone;
+	document.getElementById("email").value = email;
+
+	const modal = document.getElementById("addContactModal");
+	modal.style.display = "block";
+	
+}
+function close()
+{
+	const modal = document.getElementById("addContactModal");
+	modal.style.display = "none";
+}
