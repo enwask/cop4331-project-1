@@ -6,7 +6,7 @@
 }
 
 body {
-    background-image: url('https://cdn.discordapp.com/attachments/1333236079528247311/1335346572841586870/iStock-1302602181.jpg?ex=67a12768&is=679fd5e8&hm=54e84cc0407e0424a8c9fd0529bd220d71f990d5312ae118734597648adb2670&');
+    background-image: url('/images/SharkCircle.jpg');
     background-size: cover;  
     background-position: center center;  
     background-attachment: fixed;
