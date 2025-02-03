@@ -328,7 +328,8 @@ function deleteContact(contactId)
 				let resBox = document.getElementById("contactSearchResult");
 				resBox.innerHTML = "Could not remove contact.";
 			}
-		}
+		};
+		xhr.send(jsonPayload);
 	} catch(err){
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
