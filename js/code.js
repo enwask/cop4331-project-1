@@ -268,6 +268,11 @@ function populateContact(id, firstName, lastName, phone, email)
 	document.getElementById("email").value = email;
 	document.getElementById("editContactForm").style.display = "block"; 
 }
+
+function hideEditForm(){
+	document.getElementById("editContactForm".style.dispay="none");
+}
+
 function deleteContact(contactId){
 	let tmp = { ID: contactId};
 	let jsonPayload = JSON.stringify(tmp);
