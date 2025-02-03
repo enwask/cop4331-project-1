@@ -36,7 +36,7 @@ img{
     transform: translateY(-25%);
     
 }
-
+/*
 .title h1 {
 
     text-shadow:
@@ -45,7 +45,7 @@ img{
     -2px -2px 0 rgba(9,44,100,0.7),
     2px -2px 0 rgba(9,44,100,0.7);
 }
-
+*/
 .form-container {
     display: flex;
     flex-direction: column;
