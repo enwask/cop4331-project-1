@@ -152,10 +152,7 @@ function doRegister()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				document.getElementById("registerResult").innerHTML = `Welcome to Contact Circle ${firstName} ${lastName}!`;
-				setTimeout(() =>
-					{
-						window.location.href = "index.html";
-					}, 3000);
+				window.location.href = "index.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -198,10 +195,7 @@ function createContact()
 				if (this.readyState == 4 && this.status == 200) 
 				{
 					document.getElementById("contactAddResult").innerHTML = `${firstName} ${lastName} has been added`;
-					setTimeout(() =>
-					{
-						window.location.href = "home.html";
-					}, 3000);
+					window.location.href = "index.html";
 				}
 			};
 			xhr.send(jsonPayload);
@@ -242,7 +236,7 @@ function editContact()
 					{
 						document.getElementById("editContactForm").style.display = "none";
 						loadContacts();
-					}, 1500);
+					}, 500);
 				}
 				else if(this.readyState == 4){
 					document.getElementById("contactEditResult").innerHTML = "Could not update";
