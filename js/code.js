@@ -374,14 +374,9 @@ function loadContacts(){
 							<td>${contact.LastName}</td>
 							<td>${contact.Phone}</td>
 							<td>${contact.Email}</td>
-							<td>
-								<button onclick="populateContact(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}', '${contact.Email}')" class="edit-button">
-									<i class='bx bx-edit-alt'></i>
-								</button>
-								<button onclick="deleteContact(${contact.ID})" class="delete-button">
-									<i class='bx bx-trash'></i>
-								</button>
-							</td>
+       						<td>
+								<button onclick="populateContact(${contact.ID}, '${contact.FirstName}', '${contact.LastName}', '${contact.Phone}', '${contact.Email}')"class='edit-b>Edit</button>
+								<button onclick="deleteContact(${contact.ID})" class="delete-button">Delete</button></td>
 						</tr>`;
 						tableBody.innerHTML += row;
 					}
