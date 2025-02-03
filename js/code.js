@@ -282,6 +282,7 @@ function editContact()
 				if (this.readyState == 4 && this.status == 200) 
 				{
 					document.getElementById("contactEditResult").innerHTML = `${firstName} ${lastName} has been edited!`;
+					console.log('Server Response:', this.responseText);
 					setTimeout(() =>
 					{
 						document.getElementById("editContactForm").style.display = "none";
